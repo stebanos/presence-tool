@@ -4,11 +4,11 @@
       <h1 style="margin: 0;color: #fff;font-size: 2.2rem">{{ presence.title }}</h1>
     </div>
     <div v-if="tab === 'builder'" style="display: flex;margin-top:25px; margin-left: 20px; gap:60px;align-items:baseline;flex-flow:wrap;margin-bottom: 20px">
-      <div>
+      <div class="presence-builder">
         <h2 class="presence-header">Builder</h2>
         <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @moved-up="onMovedUp" @moved-down="onMovedDown"></builder>
       </div>
-      <div style="display: flex;gap:60px;align-items:baseline;flex-flow:wrap;margin-bottom: 20px">
+      <div style="display: flex;gap:60px;align-items:baseline;flex:1;flex-flow:wrap;margin-bottom: 20px">
       <div>
         <h2 class="presence-header">Preview Entry 'Presence 1'</h2>
         <preview-entry :presence-statuses="orderedPresenceStatuses" :preview-students="preview_students" :options="preview_options"></preview-entry>
@@ -212,5 +212,11 @@ export default class Main extends Vue {
   background-color: lightblue;
   border: 1px solid #767676;
   border-radius: 3px;
+}
+
+@media only screen and (min-width: 610px) {
+  .presence-builder {
+    min-width: 570px;
+  }
 }
 </style>
