@@ -229,10 +229,6 @@ export default class Main extends Vue {
     z-index: 10;
 }
 
-.btn-code.selected {
-  background-color: lightblue;
-  border: 1px solid #767676;
-  border-radius: 3px;
 .color.is-selected {
   position: relative;  
 }
@@ -245,6 +241,29 @@ export default class Main extends Vue {
   font-size: 11px;
   left: calc(50% - .5em);
 }
+
+.btn-code {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 10px;
+  color: #888;
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 4px 8px;
+  text-decoration:none;
+  text-transform: uppercase;
+}
+
+.btn-code:hover {
+  background: #d0d0d0;
+  color: #666;
+}
+
+.btn-code.is-selected {
+  background-color: #575757;
+  color: #fff;
 }
 
 tfoot th {

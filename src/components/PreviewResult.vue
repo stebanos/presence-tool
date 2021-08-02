@@ -4,7 +4,7 @@
       <template>
         <div v-if="display_color" class="color" :class="[getStatusColorForStudent(data.item)]"></div>
         <div v-if="display_color_code" style="max-width: fit-content"><div class="color-code" :class="[getStatusColorForStudent(data.item)]"><span>{{ getStatusCodeForStudent(data.item) }}</span></div></div>
-        <div v-if="display_code">{{ getStatusCodeForStudent(data.item) }}</div>
+        <div v-if="display_code" class="btn-code">{{ getStatusCodeForStudent(data.item) }}</div>
         <div v-if="display_dropdown">{{ getStatusTitleForStudent(data.item) }}</div>
       </template>
     </template>
