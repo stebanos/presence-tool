@@ -20,7 +20,7 @@
           </template>
       </template>
       <template #cell(color)="status">
-        <div class="color" :style="{'background-color': status.item.color}"></div>
+        <div class="color" :class="[status.item.color]"></div>
       </template>
       <template #cell(actions)="status">
         <div style="display: flex; gap: 5px;">

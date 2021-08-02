@@ -1,6 +1,6 @@
 [
-  {"id": 1, "type": "fixed", "code": "abs", "title": "Absent", "color": "#ff5722"},
-  {"id": 2, "type": "fixed", "code": "aabs", "title": "Authorized absent", "color": "#6ab5ba"},
-  {"id": 3, "type": "fixed", "code": "pres", "title": "Present", "color": "limegreen"},
-  {"id": 4, "type": "fixed", "code": "online", "title": "Online Present", "color": "#8bc34a", "aliasses": 3}
+  {"id": 1, "type": "fixed", "code": "abs", "title": "Absent", "color": "deep-orange-500"},
+  {"id": 2, "type": "fixed", "code": "aabs", "title": "Authorized absent", "color": "teal-300"},
+  {"id": 3, "type": "fixed", "code": "pres", "title": "Present", "color": "lime-300"},
+  {"id": 4, "type": "fixed", "code": "online", "title": "Online Present", "color": "green-300", "aliasses": 3}
 ]

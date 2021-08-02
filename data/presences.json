@@ -5,9 +5,9 @@
     "metadata": {
       "order": [1, 2, 3, 4, 5, 6],
       "statuses": [
-        {"ref-id": 3, "color": "#aaff00"},
-        {"id": 5, "code": "morn", "title": "Morning Present", "color": "#f8ea16", "aliasses": 3},
-        {"id": 6, "code": "after", "title": "Afternoon Present", "color": "#f8a217", "aliasses": 3}
+        {"ref-id": 3, "color": "lime-500"},
+        {"id": 5, "code": "morn", "title": "Morning Present", "color": "yellow-500", "aliasses": 3},
+        {"id": 6, "code": "after", "title": "Afternoon Present", "color": "yellow-700", "aliasses": 3}
       ]
     }
   }

@@ -174,8 +174,10 @@ export default class Main extends Vue {
 }
 
 .color {
+  background-color: var(--color);
   border: 1px solid transparent;
   border-radius: 3px;
+  color: var(--text-color);
   width: 40px;
   height: 16px;
   cursor: pointer;
@@ -188,12 +190,13 @@ export default class Main extends Vue {
 }
 
 .color-code {
+  background-color: var(--color);
   border: 1px solid transparent;
   border-radius: 3px;
+  color: var(--text-color);
   min-width: 40px;
   height: 20px;
-  color: #fff;
-  text-shadow: 1px 0 1px darkblue, -1px 0px 2px darkblue;
+  /*text-shadow: 1px 0 1px darkblue, -1px 0px 2px darkblue;*/
   font-weight: 900;
   font-size: 14px;
   padding: 2px 4px;
@@ -206,7 +209,7 @@ export default class Main extends Vue {
 .color-code span {
   position: relative;
   z-index: 1;
-  mix-blend-mode: luminosity;
+  /*mix-blend-mode: luminosity;*/
 }
 
 .color-code span::before {
@@ -215,7 +218,7 @@ export default class Main extends Vue {
   left: -1px;
   right: -1px;
   bottom: 4px;
-  background: hsla(198, 67%, 18%, .58);
+  /*background: hsla(198, 67%, 18%, .58);*/
   content: ' ';
   z-index: -1;
   border-radius: 2px;
@@ -236,4 +239,76 @@ tfoot th {
     min-width: 570px;
   }
 }
+
+:root {
+  --text-color-dark: #333;
+  --text-color-light: #fff;
+}
+
+/*  Material Design colors
+ *  Credits:
+ *
+ *  Original color palette by
+ *  https://www.google.com/design/spec/style/color.html
+ */
+
+.pink-100 { --color: #f8bbd0; --text-color: var(--text-color-dark); }
+.pink-300 { --color: #f06292; --text-color: var(--text-color-light); }
+.pink-500 { --color: #e91e63; --text-color: var(--text-color-light); }
+.pink-700 { --color: #c2185b; --text-color: var(--text-color-light); }
+.pink-900 { --color: #880e4f; --text-color: var(--text-color-light); }
+
+.blue-100 { --color: #bbdefb; --text-color: var(--text-color-dark); }
+.blue-300 { --color: #64b5f6; --text-color: var(--text-color-light); }
+.blue-500 { --color: #2196f3; --text-color: var(--text-color-light); }
+.blue-700 { --color: #1976d2; --text-color: var(--text-color-light); }
+.blue-900 { --color: #0d47a1; --text-color: var(--text-color-light); }
+
+.cyan-100 { --color: #b2ebf2; --text-color: var(--text-color-dark); }
+.cyan-300 { --color: #4dd0e1; --text-color: var(--text-color-light); }
+.cyan-500 { --color: #00bcd4; --text-color: var(--text-color-light); }
+.cyan-700 { --color: #0097a7; --text-color: var(--text-color-light); }
+.cyan-900 { --color: #006064; --text-color: var(--text-color-light); }
+
+.teal-100 { --color: #b2dfdb; --text-color: var(--text-color-light); }
+.teal-300 { --color: #4db6ac; --text-color: var(--text-color-light); }
+.teal-500 { --color: #009688; --text-color: var(--text-color-light); }
+.teal-700 { --color: #00796b; --text-color: var(--text-color-light); }
+.teal-900 { --color: #004d40; --text-color: var(--text-color-light); }
+
+.green-100 { --color: #c8e6c9; --text-color: var(--text-color-dark); }
+.green-300 { --color: #81c784; --text-color: var(--text-color-light); }
+.green-500 { --color: #4caf50; --text-color: var(--text-color-light); }
+.green-700 { --color: #388e3c; --text-color: var(--text-color-light); }
+.green-900 { --color: #1b5e20; --text-color: var(--text-color-light); }
+
+.light-green-100 { --color: #dcedc8; --text-color: var(--text-color-dark); }
+.light-green-300 { --color: #aed581; --text-color: var(--text-color-light); }
+.light-green-500 { --color: #8bc34a; --text-color: var(--text-color-light); }
+.light-green-700 { --color: #689f38; --text-color: var(--text-color-light); }
+.light-green-900 { --color: #33691e; --text-color: var(--text-color-light); }
+
+.lime-100 { --color: #f0f4c3; --text-color: var(--text-color-dark); }
+.lime-300 { --color: #dce775; --text-color: var(--text-color-dark); }
+.lime-500 { --color: #cddc39; --text-color: var(--text-color-dark); }
+.lime-700 { --color: #afb42b; --text-color: var(--text-color-light); }
+.lime-900 { --color: #827717; --text-color: var(--text-color-light); }
+
+.yellow-100 { --color: #fff9c4; --text-color: var(--text-color-dark); }
+.yellow-300 { --color: #fff176; --text-color: var(--text-color-dark); }
+.yellow-500 { --color: #ffeb3b; --text-color: var(--text-color-dark); }
+.yellow-700 { --color: #fbc02d; --text-color: var(--text-color-dark); }
+.yellow-900 { --color: #f57f17; --text-color: var(--text-color-light); }
+
+.amber-100 { --color: #ffecb3; --text-color: var(--text-color-dark); }
+.amber-300 { --color: #ffd54f; --text-color: var(--text-color-dark); }
+.amber-500 { --color: #ffc107; --text-color: var(--text-color-dark); }
+.amber-700 { --color: #ffa000; --text-color: var(--text-color-light); }
+.amber-900 { --color: #ff6f00; --text-color: var(--text-color-light); }
+
+.deep-orange-100 { --color: #ffccbc; --text-color: var(--text-color-dark); }
+.deep-orange-300 { --color: #ff8a65; --text-color: var(--text-color-light); }
+.deep-orange-500 { --color: #ff5722; --text-color: var(--text-color-light); }
+.deep-orange-700 { --color: #e64a19; --text-color: var(--text-color-light); }
+.deep-orange-900 { --color: #bf360c; --text-color: var(--text-color-light); }
 </style>
