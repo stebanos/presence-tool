@@ -183,10 +183,15 @@ export default class Main extends Vue {
   cursor: pointer;
 }
 
-.color.selected, .color-code.selected {
+.color.is-selected, .color-code.is-selected {
 /*  box-shadow: 1px 1px 3px #0000cc, inset 1px 1px 1px #0000cc;*/
-  box-shadow: 1px 0px 3px hsla(212, 79%, 48%, .6);
-  border-color: #1384e7;
+  
+/*  box-shadow: 1px 0px 3px hsla(212, 79%, 48%, .6);*/
+  box-shadow: 1px 1px 2px -1px #673ab7;
+/*  border-color: #1384e7;*/
+}
+.color:hover, .color-code:hover {
+  box-shadow: 1px 1px 2px -1px #673ab7;
 }
 
 .color-code {
@@ -206,28 +211,40 @@ export default class Main extends Vue {
   font-variant: all-small-caps;
 }
 
-.color-code span {
-  position: relative;
-  z-index: 1;
-  /*mix-blend-mode: luminosity;*/
+.color-code.is-selected {
+    position: relative;
 }
 
-.color-code span::before {
-  position: absolute;
-  top: 6px;
-  left: -1px;
-  right: -1px;
-  bottom: 4px;
-  /*background: hsla(198, 67%, 18%, .58);*/
-  content: ' ';
-  z-index: -1;
-  border-radius: 2px;
+.color-code.is-selected::after {
+    content: '\f00c';
+    font-family: 'FontAwesome';
+    position: absolute;
+    font-size: 11px;
+    background-color: inherit;
+    right: -4px;
+    bottom: -4px;
+    border: 1px solid #ffffff8f;
+    border-radius: 50%;
+    line-height: 8px;
+    z-index: 10;
 }
 
 .btn-code.selected {
   background-color: lightblue;
   border: 1px solid #767676;
   border-radius: 3px;
+.color.is-selected {
+  position: relative;  
+}
+
+.color.is-selected::after {
+  content: '\f00c';
+  font-family: 'FontAwesome';
+  text-align: center;
+  position:absolute;
+  font-size: 11px;
+  left: calc(50% - .5em);
+}
 }
 
 tfoot th {

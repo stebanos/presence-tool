@@ -23,13 +23,13 @@
     <template #cell(period)="data">
       <template>
         <div style="display: flex; gap: 5px" v-if="display_color">
-          <div v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color" :class="[status.color, { 'selected': data.item.selected === status.id }]" style="width: 30px" :style="{'background-color': status.color}" @click="data.item.selected = status.id"></div>
+          <div v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color" :class="[status.color, { 'is-selected': data.item.selected === status.id }]" style="width: 30px" :style="{'background-color': status.color}" @click="data.item.selected = status.id"></div>
         </div>
         <div style="display: flex; gap: 5px" v-if="display_code">
           <button v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="btn-code" :class="{ 'selected': data.item.selected === status.id }" @click="data.item.selected = status.id">{{ status.code }}</button>
         </div>
         <div style="display: flex; gap: 5px" v-if="display_color_code">
-          <div v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color-code" :class="[status.color, { 'selected': data.item.selected === status.id }]" @click="data.item.selected = status.id"><span>{{ status.code }}</span></div>
+          <div v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color-code" :class="[status.color, { 'is-selected': data.item.selected === status.id }]" @click="data.item.selected = status.id">{{ status.code }}</div>
         </div>
         <div v-if="display_dropdown">
           <select v-model="data.item.selected" class="form-control mod-select">
