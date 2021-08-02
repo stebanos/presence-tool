@@ -151,9 +151,22 @@ export default class Main extends Vue {
 }
 .table.mod-presence tbody {
   background: linear-gradient(to bottom, #e3eaed 0, transparent 4px);
+  transition: opacity 200ms linear;
 }
+.table.mod-presence tbody .form-control {
+  transition: background 200ms linear;
+}
+
 .table.mod-presence > tbody > tr > td {
   vertical-align: middle;
+}
+
+.table.mod-presence > tfoot > tr > th {
+  vertical-align: middle;
+}
+
+.table.mod-presence.is-changes-disabled tbody {
+    opacity: .8;
 }
 
 .presence-header {
@@ -212,6 +225,10 @@ export default class Main extends Vue {
   background-color: lightblue;
   border: 1px solid #767676;
   border-radius: 3px;
+}
+
+tfoot th {
+  font-weight: 400;
 }
 
 @media only screen and (min-width: 610px) {
