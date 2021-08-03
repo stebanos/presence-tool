@@ -3,11 +3,12 @@
     "id": "1",
     "title": "Presence 2021-2022",
     "metadata": {
+      "latest": 6,
       "order": [1, 2, 3, 4, 5, 6],
       "statuses": [
         {"ref-id": 3, "color": "lime-500"},
-        {"id": 5, "code": "morn", "title": "Morning Present", "color": "yellow-500", "aliasses": 3},
-        {"id": 6, "code": "after", "title": "Afternoon Present", "color": "yellow-700", "aliasses": 3}
+        {"id": 5, "code": "morn", "title": "Morning Present", "color": "yellow-100", "aliasses": 3},
+        {"id": 6, "code": "after", "title": "Afternoon Present", "color": "amber-300", "aliasses": 3}
       ]
     }
   }

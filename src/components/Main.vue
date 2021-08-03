@@ -6,7 +6,7 @@
     <div v-if="tab === 'builder'" style="display: flex;margin-top:25px; margin-left: 20px; gap:60px;align-items:baseline;flex-flow:wrap;margin-bottom: 20px">
       <div class="presence-builder">
         <h2 class="presence-header">Builder</h2>
-        <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @moved-up="onMovedUp" @moved-down="onMovedDown"></builder>
+        <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate"></builder>
       </div>
       <div style="display: flex;gap:60px;align-items:baseline;flex:1;flex-flow:wrap;margin-bottom: 20px">
       <div>
@@ -49,8 +49,8 @@ export default class Main extends Vue {
     { name: 'Student 1', selected: 3 }, 
     { name: 'Student 2', selected: 3 }, 
     { name: 'Student 3', selected: 3 }, 
-    { name: 'Student 4', selected: 1 }, 
-    { name: 'Student 5', selected: 1 }
+/*    { name: 'Student 4', selected: 1 }, 
+    { name: 'Student 5', selected: 1 }*/
   ];
 
   @Prop({type: APIConfig, required: true}) readonly apiConfig!: APIConfig;
@@ -104,7 +104,7 @@ export default class Main extends Vue {
       .filter((status) : status is PresenceStatus => typeof status !== undefined);
   }
   
-  onMovedUp(index: number) : void {
+  onMoveUp(index: number) : void {
     if (!this.presence || !this.presence.metadata) { return; }
     if (index <= 0) { return; }
 
@@ -112,12 +112,21 @@ export default class Main extends Vue {
     this.presence.metadata.order = order.slice(0, index - 1).concat(order[index], order[index - 1]).concat(order.slice(index + 1));
   }
   
-  onMovedDown(index: number) : void {
+  onMoveDown(index: number) : void {
     if (!this.presence || !this.presence.metadata) { return; }
 
     const order = this.presence.metadata.order;
     if (index >= order.length - 1) { return; }
     this.presence.metadata.order = order.slice(0, index).concat(order[index + 1], order[index]).concat(order.slice(index + 2));
+  }
+  
+  onCreate(data: ExtraStatus) {
+    if (!this.presence || !this.presence.metadata) { return; }
+
+    const newId = this.presence.metadata.latest + 1;
+    this.presence.metadata.statuses.push({ id: newId, ...data });
+    this.presence.metadata.order.push(newId);
+    this.presence.metadata.latest = newId;
   }
 
   mounted() : void {
