@@ -41,7 +41,7 @@
             <i class="fa fa-arrow-down" aria-hidden="true"></i>
             <span class="sr-only">Move down</span>
           </button>
-          <button v-if="status.item.type !== 'fixed'" :disabled="createNew" class="btn btn-default btn-sm mod-presence">
+          <button v-if="status.item.type !== 'fixed'" :disabled="createNew" class="btn btn-default btn-sm mod-presence" @click="$emit('remove', status.item)">
             <i class="fa fa-minus-circle" aria-hidden="true"></i>
             <span class="sr-only">Delete</span>
           </button>

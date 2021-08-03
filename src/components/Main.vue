@@ -6,7 +6,7 @@
     <div v-if="tab === 'builder'" style="display: flex;margin-top:25px; margin-left: 20px; gap:60px;align-items:baseline;flex-flow:wrap;margin-bottom: 20px">
       <div class="presence-builder">
         <h2 class="presence-header">Builder</h2>
-        <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate"></builder>
+        <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove"></builder>
       </div>
       <div style="display: flex;gap:60px;align-items:baseline;flex:1;flex-flow:wrap;margin-bottom: 20px">
       <div>
@@ -120,13 +120,28 @@ export default class Main extends Vue {
     this.presence.metadata.order = order.slice(0, index).concat(order[index + 1], order[index]).concat(order.slice(index + 2));
   }
   
-  onCreate(data: ExtraStatus) {
+  onCreate(status: ExtraStatus) {
     if (!this.presence || !this.presence.metadata) { return; }
 
     const newId = this.presence.metadata.latest + 1;
-    this.presence.metadata.statuses.push({ id: newId, ...data });
+    this.presence.metadata.statuses.push({ id: newId, ...status });
     this.presence.metadata.order.push(newId);
     this.presence.metadata.latest = newId;
+  }
+  
+  onRemove(status: ExtraStatus) {
+    if (!this.presence || !this.presence.metadata) { return; }
+    
+    const statuses = this.presence.metadata.statuses;
+    const order = this.presence.metadata.order;
+
+    let index = statuses.findIndex(o => o === status);
+    if (index === -1) { return; }
+    this.presence.metadata.statuses = statuses.slice(0, index).concat(statuses.slice(index + 1));
+
+    index = order.findIndex(o => o === status.id);
+    if (index === -1) { return; }
+    this.presence.metadata.order = order.slice(0, index).concat(order.slice(index + 1));
   }
 
   mounted() : void {
