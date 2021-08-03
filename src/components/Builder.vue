@@ -20,7 +20,16 @@
           </template>
       </template>
       <template #cell(color)="status">
-        <div class="color" :class="[status.item.color]"></div>
+        <div :id="`color-${status.index}`" class="color" :class="[status.item.color]"></div>
+        <b-popover :target="`color-${status.index}`" triggers="hover" placement="right">
+          <div style="display:grid;grid-template-columns: repeat(10, 1fr);padding: 2px; grid-gap: 2px;">
+            <template v-for="variant in [100, 300, 500, 700, 900]">
+              <template v-for="color in ['pink', 'blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'deep-orange']">
+                <button :class="[`color ${color}-${variant}`, {'is-selected': status.item.color === `${color}-${variant}`}]" :key="`color--${color}-${variant}`" style="width:20px;z-index:1000" @click="setColorForItem(status.item, `${color}-${variant}`)"></button>
+              </template>
+            </template>
+          </div>
+        </b-popover>
       </template>
       <template #cell(actions)="status">
         <div style="display: flex; gap: 5px;">
@@ -108,6 +117,9 @@ export default class Builder extends Vue {
   }
   onCancelNew() {
     this.createNew = false;
+  }
+  setColorForItem(item, color) {
+    item.color = color;
   }
 }
 </script>
