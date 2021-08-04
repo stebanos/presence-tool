@@ -34,15 +34,15 @@
       <template #cell(actions)="status">
         <div>
           <div style="display: flex; gap: 5px;">
-            <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index === 0" @click="$emit('move-up', status.index)">
+            <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index === 0" @click="onMoveUp(status)" :id="`btn-up-${status.index}`">
               <i class="fa fa-arrow-up" aria-hidden="true"></i>
               <span class="sr-only">Move up</span>
             </button>
-            <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index >= presenceStatuses.length - 1"  @click="$emit('move-down', status.index)">
+            <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index >= presenceStatuses.length - 1"  @click="onMoveDown(status)" :id="`btn-down-${status.index}`">
               <i class="fa fa-arrow-down" aria-hidden="true"></i>
               <span class="sr-only">Move down</span>
             </button>
-            <button v-if="status.item.type !== 'fixed'" :disabled="createNew" class="btn btn-default btn-sm mod-presence" @click="$emit('remove', status.item)">
+            <button :disabled="createNew || status.item.type === 'fixed'" class="btn btn-default btn-sm mod-presence" @click="$emit('remove', status.item)">
               <i class="fa fa-minus-circle" aria-hidden="true"></i>
               <span class="sr-only">Delete</span>
             </button>
@@ -125,12 +125,36 @@ export default class Builder extends Vue {
       document.getElementById('new-presence-code')?.focus();
     });
   }
+  
   onSaveNew() {
     this.$emit('create', { code: this.codeNew, title: this.titleNew, aliasses: this.aliasNew, color: this.colorNew });
     this.resetNew();
   }
+  
   onCancelNew() {
     this.resetNew();
+  }
+  
+  onMoveDown(status: any) {
+    this.$emit('move-down', status.index);
+    this.$nextTick(() => {
+      let el : HTMLButtonElement|null = document.querySelector(`#btn-down-${status.index + 1}`);
+      if (el?.disabled) {
+        el = el?.previousSibling as HTMLButtonElement;
+      }
+      el?.focus();
+    });
+  }
+
+  onMoveUp(status: any) {
+    this.$emit('move-up', status.index);
+    this.$nextTick(() => {
+      let el : HTMLButtonElement|null = document.querySelector(`#btn-up-${status.index - 1}`);
+      if (el?.disabled) {
+        el = el?.nextSibling as HTMLButtonElement;
+      }
+      el?.focus();
+    });
   }
   
   resetNew() {

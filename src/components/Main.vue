@@ -295,7 +295,7 @@ tfoot th {
   font-weight: 400;
 }
 
-/* .table.mod-presence thead {
+.table.mod-presence thead {
   position: relative;
 }
 
@@ -335,6 +335,23 @@ tfoot th {
   flex-direction: column;
   gap: 5px;
 }
+.table.mod-presence tbody:not(:focus-within) .btn.mod-presence {
+  pointer-events: none;
+  opacity: 0.4;
+  box-shadow: none;
+}
+.table.mod-presence tbody tr:focus-within {
+  background: #ecf4f4;
+}
+.table.mod-presence tbody tr:focus-within .table-actions {
+  z-index: 100;
+}
+.table.mod-presence tbody tr:focus-within .table-actions .btn.mod-presence:last-child:not(:disabled) {
+  color: red;
+}
+.table.mod-presence.is-changes-disabled tbody:not(:focus-within) .btn.mod-presence {
+  opacity: 0;
+}
 
 .table.mod-presence tfoot {
   position: relative;
@@ -367,7 +384,7 @@ tfoot th {
   gap: 5px;
   justify-content: center;
   width: 100%;
-}*/
+}
 
 @media only screen and (min-width: 610px) {
   .presence-builder {
