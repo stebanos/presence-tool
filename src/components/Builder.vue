@@ -32,19 +32,21 @@
         </b-popover>
       </template>
       <template #cell(actions)="status">
-        <div style="display: flex; gap: 5px;">
-          <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index === 0" @click="$emit('move-up', status.index)">
-            <i class="fa fa-arrow-up" aria-hidden="true"></i>
-            <span class="sr-only">Move up</span>
-          </button>
-          <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index >= presenceStatuses.length - 1"  @click="$emit('move-down', status.index)">
-            <i class="fa fa-arrow-down" aria-hidden="true"></i>
-            <span class="sr-only">Move down</span>
-          </button>
-          <button v-if="status.item.type !== 'fixed'" :disabled="createNew" class="btn btn-default btn-sm mod-presence" @click="$emit('remove', status.item)">
-            <i class="fa fa-minus-circle" aria-hidden="true"></i>
-            <span class="sr-only">Delete</span>
-          </button>
+        <div>
+          <div style="display: flex; gap: 5px;">
+            <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index === 0" @click="$emit('move-up', status.index)">
+              <i class="fa fa-arrow-up" aria-hidden="true"></i>
+              <span class="sr-only">Move up</span>
+            </button>
+            <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index >= presenceStatuses.length - 1"  @click="$emit('move-down', status.index)">
+              <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              <span class="sr-only">Move down</span>
+            </button>
+            <button v-if="status.item.type !== 'fixed'" :disabled="createNew" class="btn btn-default btn-sm mod-presence" @click="$emit('remove', status.item)">
+              <i class="fa fa-minus-circle" aria-hidden="true"></i>
+              <span class="sr-only">Delete</span>
+            </button>
+          </div>
         </div>
       </template>
       <template #foot(code)="">
@@ -72,15 +74,17 @@
         </b-popover>
       </template>
       <template #foot(actions)="">
-        <div style="display: flex; gap: 5px;">
-          <button class="btn btn-default btn-sm mod-presence" @click="onSaveNew" style="" :disabled="!(codeNew && titleNew && aliasNew > 0)">
-            <i class="fa fa-check-circle" aria-hidden="true"></i>
-            <span class="sr-only">Save</span>
-          </button>
-          <button class="btn btn-default btn-sm mod-presence" @click="onCancelNew" style="">
-            <i class="fa fa-minus-circle" aria-hidden="true" style="color:red"></i>
-            <span class="sr-only">Cancel</span>
-          </button>
+        <div>
+          <div style="display: flex; gap: 5px;">
+            <button class="btn btn-default btn-sm mod-presence" @click="onSaveNew" style="" :disabled="!(codeNew && titleNew && aliasNew > 0)">
+              <i class="fa fa-check-circle" aria-hidden="true"></i>
+              <span class="sr-only">Save</span>
+            </button>
+            <button class="btn btn-default btn-sm mod-presence" @click="onCancelNew" style="">
+              <i class="fa fa-minus-circle" aria-hidden="true" style="color:red"></i>
+              <span class="sr-only">Cancel</span>
+            </button>
+          </div>
         </div>
       </template>
     </b-table>

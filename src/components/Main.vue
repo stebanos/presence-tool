@@ -295,6 +295,80 @@ tfoot th {
   font-weight: 400;
 }
 
+/* .table.mod-presence thead {
+  position: relative;
+}
+
+.table.mod-presence thead .table-actions {
+  background: white;
+  border: 0;
+  bottom: 0;
+  padding: 0;
+  position: absolute;
+  top: -1px;
+  width: 1px;
+}
+
+.table.mod-presence tbody {
+  position: relative;
+}
+
+.table.mod-presence tbody .table-actions {
+  background: white;
+  border: 0;
+  bottom: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+}
+
+.table.mod-presence tbody .table-actions > div {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.table.mod-presence tbody .table-actions > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.table.mod-presence tfoot {
+  position: relative;
+}
+
+.table.mod-presence tfoot .table-actions {
+  bottom: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+.table.mod-presence tfoot .table-actions > div {
+  align-items: center;
+  background: white;
+  border: 1px solid #ebebeb;
+  border-left: 0;
+  bottom: -1px;
+  display: flex;
+  gap: 5px;
+  left: -1px;
+  position: absolute;
+  top: -2px;
+  width: 70px;
+}
+
+.table.mod-presence tfoot .table-actions > div > div {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  width: 100%;
+}*/
+
 @media only screen and (min-width: 610px) {
   .presence-builder {
     min-width: 570px;
