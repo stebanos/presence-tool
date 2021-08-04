@@ -38,6 +38,8 @@ const api = {
 };
 
 export default (app, http) => {
+	fs.copyFileSync('./data/initial/presences.json', './data/presences.json');
+	fs.copyFileSync('./data/initial/students.json', './data/students.json');
 	app.use(cors());
 	app.use(bodyParser.urlencoded({extended: false}));
 	app.use(bodyParser.json());

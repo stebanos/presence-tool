@@ -1,0 +1,12 @@
+[
+  { "id": 1, "firstname": "Joey", "lastname": "Jefferson" },
+  { "id": 2, "firstname": "Freddy", "lastname": "Firstborn" },
+  { "id": 3, "firstname": "Jane", "lastname": "Elderberry" },
+  { "id": 4, "firstname": "Ella", "lastname": "Aberdeen" },
+  { "id": 5, "firstname": "Greg", "lastname": "Beaty" },
+  { "id": 6, "firstname": "Tommy", "lastname": "Fereira" },
+  { "id": 7, "firstname": "Thiago", "lastname": "Alfonso" },
+  { "id": 8, "firstname": "Geraldine", "lastname": "Christoffersson" },
+  { "id": 9, "firstname": "Pablo", "lastname": "Lewis" },
+  { "id": 10, "firstname": "Camelia", "lastname": "Mour" }
+]
