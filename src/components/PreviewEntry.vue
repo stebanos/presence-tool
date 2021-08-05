@@ -2,17 +2,9 @@
   <b-table bordered :items="previewStudents" :fields="fields" style="/*width: fit-content*/" class="mod-presence">
     <template #head(period)="data">
       <div style="display: flex; gap: 5px;" :data-item="data.period">
-        <div class="radio-tabs-default" :class="{'radio-tabs-active': options.display_selected === 'color'}">
-          <input type="radio" name="choice-display" id="choice-color" value="color" class="sr-only" v-model="options.display_selected" />
-          <label for="choice-color" class="radio-tabs">Color</label>
-        </div>
         <div class="radio-tabs-default" :class="{'radio-tabs-active': options.display_selected === 'color-code'}">
           <input type="radio" name="choice-display" id="choice-color-code" value="color-code" class="sr-only" v-model="options.display_selected" />
-          <label for="choice-color-code" class="radio-tabs">Color/Label</label>
-        </div>
-        <div class="radio-tabs-default" :class="{'radio-tabs-active': options.display_selected === 'code'}">
-          <input type="radio" name="choice-display" id="choice-code" value="code" class="sr-only" v-model="options.display_selected" />
-          <label for="choice-code" class="radio-tabs">Label</label>
+          <label for="choice-color-code" class="radio-tabs">Color</label>
         </div>
         <div class="radio-tabs-default" :class="{'radio-tabs-active': options.display_selected === 'dropdown'}">
           <input type="radio" name="choice-display" id="choice-dropdown" value="dropdown" class="sr-only" v-model="options.display_selected" />
@@ -22,13 +14,6 @@
     </template>
     <template #cell(period)="data">
       <template>
-        <div style="display: flex; gap: 5px" v-if="display_color">
-          <div v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color" :class="[status.color, { 'is-selected': data.item.selected === status.id }]" style="width: 30px" :style="{'background-color': status.color}" @click="data.item.selected = status.id"></div>
-        </div>
-        <div style="display: flex; gap: 5px" v-if="display_code">
-          <button v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="btn-code" :class="{ 'is-selected': data.item.selected === status.id }" @click="data.item.selected = status.id">{{ status.code }}</button>
-          <!--<button v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="btn-code" :class="{ 'is-selected': data.item.selected === status.id }" @click="data.item.selected = status.id">{{ status.code }}</button>-->
-        </div>
         <div style="display: flex; gap: 5px" v-if="display_color_code">
           <div v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color-code" :class="[status.color, { 'is-selected': data.item.selected === status.id }]" @click="data.item.selected = status.id">{{ status.code }}</div>
         </div>
@@ -37,6 +22,16 @@
             <option v-for="(status, index) in presenceStatuses" :key="`status-${index}`" :value="status.id">{{ status.title }}</option>
           </select>
         </div>
+      </template>
+    </template>
+    <template #head(period-result)="data">
+      <div id="lbl" class="txt-truncate">{{data.label}}</div>
+      <b-tooltip target="lbl" triggers="hover" placement="bottom">{{data.label}}</b-tooltip>
+    </template>
+    <template #cell(period-result)="data">
+      <template>
+        <div v-if="display_color_code" style="max-width: fit-content;margin: 0 auto"><div class="color-code" :class="[getStatusColorForStudent(data.item)]"><span>{{ getStatusCodeForStudent(data.item) }}</span></div></div>
+        <div v-if="display_dropdown">{{ getStatusTitleForStudent(data.item) }}</div>
       </template>
     </template>
   </b-table>
@@ -55,27 +50,36 @@ export default class PreviewEntry extends Vue {
   
   readonly fields = [
     { key: 'name', sortable: false, label: 'Student' },
-    { key: 'period', sortable: false, label: 'Presence 1' }
+    { key: 'period', sortable: false, label: 'Presence 1', variant: 'period' },
+    { key: 'period-result', sortable: false, label: 'Presence 1', variant: 'result' }
   ];
   
   @Prop({type: Array, required: true}) readonly presenceStatuses!: PresenceStatus[];
   @Prop({type: Array, required: true}) readonly previewStudents!: PreviewStudent[];
   @Prop({required: true}) readonly options!: { display_selected: string; };
   
-  get display_color() : boolean {
-    return this.options.display_selected === 'color';
-  }
-  
-  get display_code() : boolean {
-    return this.options.display_selected === 'code';
-  }
-
   get display_color_code() : boolean {
     return this.options.display_selected === 'color-code';
   }
 
   get display_dropdown() : boolean {
     return this.options.display_selected === 'dropdown';
+  }
+  
+  getStatusForStudent(statusId : number) : PresenceStatus|undefined {
+    return this.presenceStatuses.find(s => s.id === statusId);
+  }
+  
+  getStatusTitleForStudent(student: PreviewStudent) : string {
+    return this.getStatusForStudent(student.selected)?.title || '';
+  }
+
+  getStatusCodeForStudent(student: PreviewStudent) : string {
+    return this.getStatusForStudent(student.selected)?.code || '';
+  }
+
+  getStatusColorForStudent(student: PreviewStudent) : string {
+    return this.getStatusForStudent(student.selected)?.color || '';
   }
 }
 </script>

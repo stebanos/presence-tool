@@ -3,20 +3,14 @@
     <div style="background-color: #2b6597;padding: 20px 15px;border-bottom: 1px solid #14578f">
       <h1 style="margin: 0;color: #fff;font-size: 2.2rem">{{ presence.title }}</h1>
     </div>
-    <div v-if="tab === 'builder'" style="display: flex;margin-top:25px; margin-left: 20px; gap:60px;align-items:baseline;flex-flow:wrap;margin-bottom: 20px">
+    <div v-if="tab === 'builder'" style="display: flex;margin-top:25px; margin-left: 20px; gap: 90px;align-items:baseline;flex-flow:wrap;margin-bottom: 20px">
       <div class="presence-builder">
         <h2 class="presence-header">Builder</h2>
         <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove"></builder>
       </div>
-      <div style="display: flex;gap:60px;align-items:baseline;flex:1;flex-flow:wrap;margin-bottom: 20px">
       <div>
         <h2 class="presence-header">Preview Entry 'Presence 1'</h2>
         <preview-entry :presence-statuses="orderedPresenceStatuses" :preview-students="preview_students" :options="preview_options"></preview-entry>
-      </div>
-      <div>
-        <h2 class="presence-header">Preview Result</h2>
-        <preview-result :presence-statuses="orderedPresenceStatuses" :preview-students="preview_students" :display-selected="preview_options.display_selected"></preview-result>
-      </div>
       </div>
     </div>
   </div>
@@ -29,10 +23,9 @@ import APIConfig from '../connect/APIConfig';
 import Connector from '../connect/Connector';
 import Builder from './Builder.vue';
 import PreviewEntry from './PreviewEntry.vue';
-import PreviewResult from './PreviewResult.vue';
 
 @Component({
-  components: { Builder, PreviewEntry, PreviewResult }
+  components: { Builder, PreviewEntry }
 })
 export default class Main extends Vue {
   // eslint-disable-next-line
@@ -267,30 +260,6 @@ export default class Main extends Vue {
   top: 0;
 }
 
-.btn-code {
-  background: #f0f0f0;
-  border: none;
-  border-radius: 10px;
-  color: #888;
-  display: inline-block;
-  font-size: 10.5px;
-  font-weight: 500;
-  line-height: 1;
-  padding: 4px 8px;
-  text-decoration:none;
-  text-transform: uppercase;
-}
-
-.btn-code:hover {
-  background: #d0d0d0;
-  color: #666;
-}
-
-.btn-code.is-selected {
-  background-color: #575757;
-  color: #fff;
-}
-
 tfoot th {
   font-weight: 400;
 }
@@ -320,6 +289,14 @@ tfoot th {
   padding: 0;
   position: absolute;
   top: 0;
+}
+
+.table.mod-presence tbody .table-period, .table.mod-presence thead .table-period {
+  border-right: 0;
+}
+
+.table.mod-presence tbody .table-result, .table.mod-presence thead .table-result {
+  border-left: 0;
 }
 
 .table.mod-presence tbody .table-actions > div {
@@ -386,10 +363,28 @@ tfoot th {
   width: 100%;
 }
 
-@media only screen and (min-width: 610px) {
-  .presence-builder {
-    min-width: 570px;
-  }
+th.table-result {
+  max-width: 1px;
+}
+.txt-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+td.table-period {
+    position: relative;
+}
+
+td.table-period:after {
+    content: '';
+    display: block;
+    width: 1px;
+    background-color: #ebebeb;
+    position: absolute;
+    right: -1px;
+    top: 8px;
+    bottom: 8px;
 }
 
 :root {
