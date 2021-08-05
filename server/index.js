@@ -34,6 +34,10 @@ const api = {
         api._error(res, err);
       }
     };
+  },
+  
+  updatePresences: (req, res) => {
+    api._json(res, {'text-message': 'ok'});
   }
 };
 
@@ -48,4 +52,5 @@ export default (app, http) => {
   app.get('/students', api.dataFile('students.json'));
   app.get('/status-defaults', api.dataFile('status-defaults.json'));
   app.get('/presences', api.dataFile('presences.json'));
+  app.post('/update-presences', api.updatePresences);
 }

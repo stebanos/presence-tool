@@ -18,7 +18,8 @@ export default class App extends Vue {
     readonly apiConfig = APIConfig.from({
         loadStudentsURL: `${HOST_URL}/students`,
         loadStatusDefaultsURL: `${HOST_URL}/status-defaults`,
-        loadPresencesURL: `${HOST_URL}/presences`
+        loadPresencesURL: `${HOST_URL}/presences`,
+        updatePresencesURL: `${HOST_URL}/update-presences`
     });
 }
 </script>
