@@ -294,7 +294,7 @@ tfoot th {
 .table.mod-builder tbody tr td {
   padding: 0;
 }
-.table.mod-builder tbody tr td > div {
+.table.mod-builder tbody tr td:not(.table-actions) > div {
   padding: 8px;
 }
 
@@ -311,7 +311,7 @@ tfoot th {
   display: flex;
   height: 100%;
   justify-content: center;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .table.mod-presence tbody .table-actions > div > div {
