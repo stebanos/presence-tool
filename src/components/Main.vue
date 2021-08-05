@@ -291,6 +291,13 @@ tfoot th {
   top: 0;
 }
 
+.table.mod-builder tbody tr td {
+  padding: 0;
+}
+.table.mod-builder tbody tr td > div {
+  padding: 8px;
+}
+
 .table.mod-presence tbody .table-period, .table.mod-presence thead .table-period {
   border-right: 0;
 }
@@ -312,22 +319,27 @@ tfoot th {
   flex-direction: column;
   gap: 5px;
 }
-.table.mod-presence tbody:not(:focus-within) .btn.mod-presence {
-  pointer-events: none;
-  opacity: 0.4;
-  box-shadow: none;
+
+.table.mod-builder tbody tr:hover {
+  background: #f4fbfb;
 }
-.table.mod-presence tbody tr:focus-within {
+
+.table.mod-presence tbody tr.is-selected {
   background: #ecf4f4;
 }
-.table.mod-presence tbody tr:focus-within .table-actions {
+
+.table.mod-presence tbody tr.is-selected .table-actions {
   z-index: 100;
 }
-.table.mod-presence tbody tr:focus-within .table-actions .btn.mod-presence:last-child:not(:disabled) {
+
+.table.mod-presence tbody tr.is-selected .table-actions .btn.mod-presence:last-child:not(:disabled) {
   color: red;
 }
-.table.mod-presence.is-changes-disabled tbody:not(:focus-within) .btn.mod-presence {
+
+.table.mod-presence tbody tr:not(.is-selected) .btn.mod-presence {
+  pointer-events: none;
   opacity: 0;
+  box-shadow: none;
 }
 
 .table.mod-presence tfoot {
