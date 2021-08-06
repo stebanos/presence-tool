@@ -3,7 +3,7 @@
     <div style="background-color: #2b6597;padding: 20px 15px;border-bottom: 1px solid #14578f">
       <h1 style="margin: 0;color: #fff;font-size: 2.2rem">{{ presence.title }}</h1>
     </div>
-    <div v-if="tab === 'builder'" style="display: flex;margin-top:25px; margin-left: 20px; gap: 90px;align-items:baseline;flex-flow:wrap;margin-bottom: 20px">
+    <div v-if="tab === 'builder'" style="display: flex; margin: 25px 20px 20px; column-gap: 70px;row-gap: 40px;align-items:baseline;flex-flow:wrap;">
       <div class="presence-builder">
         <h2 class="presence-header">Builder</h2>
         <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove"></builder>
@@ -264,11 +264,11 @@ tfoot th {
   font-weight: 400;
 }
 
-.table.mod-presence thead {
+.table.mod-builder thead {
   position: relative;
 }
 
-.table.mod-presence thead .table-actions {
+.table.mod-builder thead .table-actions {
   background: white;
   border: 0;
   bottom: 0;
@@ -278,13 +278,14 @@ tfoot th {
   width: 1px;
 }
 
-.table.mod-presence tbody {
+.table.mod-builder tbody {
   position: relative;
 }
 
-.table.mod-presence tbody .table-actions {
+.table.mod-builder tbody .table-actions {
   background: white;
-  border: 0;
+/*  border: 0;*/
+  border-color: #fff;
   bottom: 0;
   padding: 0;
   position: absolute;
@@ -306,47 +307,63 @@ tfoot th {
   border-left: 0;
 }
 
-.table.mod-presence tbody .table-actions > div {
-  align-items: center;
+.table.mod-builder tbody .table-actions > div {
   display: flex;
-  height: 100%;
-  justify-content: center;
-  margin-left: 8px;
 }
 
-.table.mod-presence tbody .table-actions > div > div {
+
+.table.mod-builder tbody .table-actions > div > div {
   display: flex;
-  flex-direction: column;
   gap: 5px;
+}
+
+@media only screen and (min-width: 460px) {
+  .table.mod-builder tbody .table-actions > div {
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+    margin-left: 8px;
+  }
+  .table.mod-builder tbody .table-actions > div > div {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .table.mod-builder tbody .table-actions > div > div {
+    position: absolute;
+    right: 0;
+    bottom: -35px;
+  }
 }
 
 .table.mod-builder tbody tr:hover {
   background: #f4fbfb;
 }
 
-.table.mod-presence tbody tr.is-selected {
+.table.mod-builder tbody tr.is-selected {
   background: #ecf4f4;
 }
 
-.table.mod-presence tbody tr.is-selected .table-actions {
+.table.mod-builder tbody tr.is-selected .table-actions {
   z-index: 100;
 }
 
-.table.mod-presence tbody tr.is-selected .table-actions .btn.mod-presence:last-child:not(:disabled) {
+.table.mod-builder tbody tr.is-selected .table-actions .btn.mod-presence:last-child:not(:disabled) {
   color: red;
 }
 
-.table.mod-presence tbody tr:not(.is-selected) .btn.mod-presence {
+.table.mod-builder tbody tr:not(.is-selected) .btn.mod-presence {
   pointer-events: none;
   opacity: 0;
   box-shadow: none;
 }
 
-.table.mod-presence tfoot {
+.table.mod-builder tfoot {
   position: relative;
 }
 
-.table.mod-presence tfoot .table-actions {
+.table.mod-builder tfoot .table-actions {
   bottom: 0;
   padding: 0;
   position: absolute;
@@ -354,25 +371,32 @@ tfoot th {
   width: 1px;
 }
 
-.table.mod-presence tfoot .table-actions > div {
+.table.mod-builder tfoot .table-actions > div {
   align-items: center;
-  background: white;
-  border: 1px solid #ebebeb;
+  background: #fff;
+  border: 1px solid #fff;
   border-left: 0;
   bottom: -1px;
   display: flex;
-  gap: 5px;
   left: -1px;
   position: absolute;
   top: -2px;
   width: 70px;
 }
 
-.table.mod-presence tfoot .table-actions > div > div {
+.table.mod-builder tfoot .table-actions > div > div {
   display: flex;
   gap: 5px;
   justify-content: center;
   width: 100%;
+}
+
+@media only screen and (max-width: 580px) {
+  .table.mod-builder tfoot .table-actions > div > div {
+    position: absolute;
+    bottom: -35px;
+    left: -62px;
+  }
 }
 
 th.table-result {

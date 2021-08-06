@@ -14,7 +14,7 @@
     </template>
     <template #cell(period)="data">
       <template>
-        <div style="display: flex; gap: 5px" v-if="display_color_code">
+        <div style="display: flex; gap: 5px; flex-flow: wrap" v-if="display_color_code">
           <div v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color-code" :class="[status.color, { 'is-selected': data.item.selected === status.id }]" @click="data.item.selected = status.id">{{ status.code }}</div>
         </div>
         <div v-if="display_dropdown">

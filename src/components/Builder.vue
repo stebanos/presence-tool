@@ -1,16 +1,16 @@
 <template>
-  <div @click="selectedStatus = null">
+  <div @click="selectedStatus = null" style="margin-right:20px">
     <b-table bordered :foot-clone="createNew" :items="presenceStatuses" :fields="fields" style="margin-bottom:0;width: fit-content" class="mod-presence mod-builder" :class="{'is-changes-disabled': createNew}" :tbody-tr-class="rowClass">
       <template #cell(code)="status">
-        <div @click.stop="selectedStatus = status.item"><b-input type="text" v-model="status.item.code" :disabled="createNew" style="width: 50px" class="mod-input" @input="onInput(status.item)"/></div>
+        <div @click.stop="onSelectStatus(status.item)"><b-input type="text" v-model="status.item.code" :disabled="createNew" style="width: 50px" class="mod-input" @input="onInput(status.item)"/></div>
       </template>
       <template #cell(title)="status">
-        <div @click.stop="selectedStatus = status.item">
+        <div @click.stop="onSelectStatus(status.item)">
         <template v-if="status.item.type === 'fixed'">{{ status.item.title }}</template>
         <b-input v-else type="text" v-model="status.item.title" :disabled="createNew" class="mod-input" @input="onInput(status.item)" /></div>
       </template>
       <template #cell(meaning)="status">
-          <div @click.stop="selectedStatus = status.item"><span v-if="!status.item.aliasses">{{ status.item.title }}</span>
+          <div @click.stop="onSelectStatus(status.item)"><span v-if="!status.item.aliasses">{{ status.item.title }}</span>
           <template v-else>
             <span v-if="status.item.type === 'fixed'">
               {{ statusDefaults.find(s => s.id === status.item.aliasses).title }}
@@ -21,7 +21,7 @@
           </template></div>
       </template>
       <template #cell(color)="status">
-        <div @click.stop="selectedStatus = status.item">
+        <div @click.stop="onSelectStatus(status.item)">
         <div :id="`color-${status.index}`" class="color" style="transition: opacity 200ms" :style="createNew ? 'cursor: not-allowed;opacity: .4': ''" :class="[status.item.color]" :disabled="createNew"></div>
         <b-popover :target="`color-${status.index}`" triggers="hover" placement="right">
           <div style="display:grid;grid-template-columns: repeat(10, 1fr);padding: 2px; grid-gap: 2px;">
@@ -36,7 +36,7 @@
       </template>
       <template #cell(actions)="status">
         <div>
-          <div style="display: flex; gap: 5px;">
+          <div style="">
             <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index === 0" @click.stop="onMoveUp(status)" :id="`btn-up-${status.index}`">
               <i class="fa fa-arrow-up" aria-hidden="true"></i>
               <span class="sr-only">Move up</span>
@@ -78,7 +78,7 @@
       </template>
       <template #foot(actions)="">
         <div>
-          <div style="display: flex; gap: 5px;">
+          <div>
             <button class="btn btn-default btn-sm mod-presence" @click="onSaveNew" style="" :disabled="!(codeNew && titleNew && aliasNew > 0)">
               <i class="fa fa-check-circle" aria-hidden="true"></i>
               <span class="sr-only">Save</span>
@@ -92,6 +92,7 @@
       </template>
     </b-table>
     <button v-if="!createNew" class="btn btn-primary" style="margin-top: 10px" @click="onCreateNew"><i class="fa fa-plus" style="font-size: 13px;margin-right:5px"></i> New presence status</button>
+    
   </div>
 </template>
 
@@ -123,6 +124,12 @@ export default class Builder extends Vue {
   
   @Prop({type: Array, required: true}) readonly presenceStatuses!: PresenceStatus[];
   @Prop({type: Array, required: true}) readonly statusDefaults!: PresenceStatus[];
+  
+  onSelectStatus(status: PresenceStatus) {
+    if (!this.createNew) {
+      this.selectedStatus = status;
+    }
+  }
   
   onCreateNew() {
     this.createNew = true;
