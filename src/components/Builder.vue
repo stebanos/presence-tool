@@ -22,8 +22,8 @@
       </template>
       <template #cell(color)="status">
         <div @click.stop="onSelectStatus(status.item)">
-        <div :id="`color-${status.index}`" class="color" style="transition: opacity 200ms" :style="createNew ? 'cursor: not-allowed;opacity: .4': ''" :class="[status.item.color]" :disabled="createNew"></div>
-        <b-popover :target="`color-${status.index}`" triggers="hover" placement="right">
+        <button :id="`color-${status.index}`" class="color" style="transition: opacity 200ms" :style="createNew ? 'cursor: not-allowed;opacity: .4': ''" :class="[status.item.color]" :disabled="createNew"></button>
+        <b-popover :target="`color-${status.index}`" triggers="click blur" placement="right">
           <div style="display:grid;grid-template-columns: repeat(10, 1fr);padding: 2px; grid-gap: 2px;">
             <template v-for="variant in [100, 300, 500, 700, 900]">
               <template v-for="color in ['pink', 'blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'deep-orange']">
@@ -65,8 +65,8 @@
         </select>
       </template>
       <template #foot(color)="">
-        <div class="color" :class="colorNew" id="color-new"></div>
-        <b-popover :target="`color-new`" triggers="hover" placement="right">
+        <button class="color" :class="colorNew" id="color-new"></button>
+        <b-popover :target="`color-new`" triggers="click blur" placement="right">
           <div style="display:grid;grid-template-columns: repeat(10, 1fr);padding: 2px; grid-gap: 2px;">
             <template v-for="variant in [100, 300, 500, 700, 900]">
               <template v-for="color in ['pink', 'blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'deep-orange']">
