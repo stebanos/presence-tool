@@ -9,7 +9,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import APIConfig from './connect/APIConfig';
 import Main from './components/Main.vue';
 
-const HOST_URL = 'http://localhost:3000';
+const HOST_URL = `${document.location.protocol}//${document.location.hostname}:3000`;
 
 @Component({
   components: { Main }
