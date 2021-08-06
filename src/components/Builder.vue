@@ -180,9 +180,9 @@ export default class Builder extends Vue {
     }
   }
   
-  rowClass(item, type) : string {
-    if (!item || type !== 'row') { return ''; }
+  rowClass(item: PresenceStatus) : string {
     if (item === this.selectedStatus) { return 'is-selected'; }
+    return '';
   }
 }
 </script>
