@@ -1,16 +1,18 @@
 <template>
-  <div @click="selectedStatus = null" style="margin-right:20px">
-    <b-table bordered :foot-clone="createNew" :items="presenceStatuses" :fields="fields" style="margin-bottom:0;width: fit-content" class="mod-presence mod-builder" :class="{'is-changes-disabled': createNew}" :tbody-tr-class="rowClass">
+  <div @click="selectedStatus = null">
+    <b-table bordered :foot-clone="createNew" :items="presenceStatuses" :fields="fields" class="mod-presence mod-builder" :class="{'is-changes-disabled': createNew}" :tbody-tr-class="rowClass">
       <template #cell(code)="status">
-        <div @click.stop="onSelectStatus(status.item)"><b-input type="text" v-model="status.item.code" :disabled="createNew" style="width: 50px" class="mod-input" @input="onInput(status.item)"/></div>
+        <div class="cell-pad" @click.stop="onSelectStatus(status.item)"><b-input type="text" v-model="status.item.code" :disabled="createNew" class="mod-input mod-small" @input="onInput(status.item)"/></div>
       </template>
       <template #cell(title)="status">
-        <div @click.stop="onSelectStatus(status.item)">
-        <template v-if="status.item.type === 'fixed'">{{ status.item.title }}</template>
-        <b-input v-else type="text" v-model="status.item.title" :disabled="createNew" class="mod-input" @input="onInput(status.item)" /></div>
+        <div class="cell-pad" @click.stop="onSelectStatus(status.item)">
+          <template v-if="status.item.type === 'fixed'">{{ status.item.title }}</template>
+          <b-input v-else type="text" v-model="status.item.title" :disabled="createNew" class="mod-input" @input="onInput(status.item)" />
+        </div>
       </template>
       <template #cell(meaning)="status">
-          <div @click.stop="onSelectStatus(status.item)"><span v-if="!status.item.aliasses">{{ status.item.title }}</span>
+        <div class="cell-pad" @click.stop="onSelectStatus(status.item)">
+          <span v-if="!status.item.aliasses">{{ status.item.title }}</span>
           <template v-else>
             <span v-if="status.item.type === 'fixed'">
               {{ statusDefaults.find(s => s.id === status.item.aliasses).title }}
@@ -18,25 +20,18 @@
             <select v-else class="form-control mod-select" :disabled="createNew" @change="onInput(status.item)">
               <option v-for="(statusDefault, index) in statusDefaults" :key="`fs-${index}`" :value="statusDefault.id" :selected="status.item.aliasses === statusDefault.id">{{ statusDefault.title }}</option>
             </select>
-          </template></div>
+          </template>
+        </div>
       </template>
       <template #cell(color)="status">
-        <div @click.stop="onSelectStatus(status.item)">
-        <button :id="`color-${status.index}`" class="color" style="transition: opacity 200ms" :style="createNew ? 'cursor: not-allowed;opacity: .4': ''" :class="[status.item.color]" :disabled="createNew"></button>
-        <b-popover :target="`color-${status.index}`" triggers="click blur" placement="right">
-          <div style="display:grid;grid-template-columns: repeat(10, 1fr);padding: 2px; grid-gap: 2px;">
-            <template v-for="variant in [100, 300, 500, 700, 900]">
-              <template v-for="color in ['pink', 'blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'deep-orange']">
-                <button :class="[`color ${color}-${variant}`, {'is-selected': status.item.color === `${color}-${variant}`}]" :key="`color--${color}-${variant}`" style="width:20px;z-index:1000" @click.stop="setColorForItem(status.item, `${color}-${variant}`)"></button>
-              </template>
-            </template>
-          </div>
-        </b-popover>
-  </div>
+        <div class="u-flex cell-pad" @click.stop="onSelectStatus(status.item)">
+          <button :id="`color-${status.index}`" class="color" :class="[{'is-selected': status.item === selectedStatus}, status.item.color]" :disabled="createNew"></button>
+          <color-picker :target="`color-${status.index}`" triggers="click blur" placement="right" :selected-color="status.item.color" @color-selected="setColorForItem(status.item, $event)"></color-picker>
+        </div>
       </template>
       <template #cell(actions)="status">
-        <div>
-          <div style="">
+        <div class="u-flex actions-wrap">
+          <div class="u-flex u-gap-small actions-wrap-2">
             <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index === 0" @click.stop="onMoveUp(status)" :id="`btn-up-${status.index}`">
               <i class="fa fa-arrow-up" aria-hidden="true"></i>
               <span class="sr-only">Move up</span>
@@ -53,7 +48,7 @@
         </div>
       </template>
       <template #foot(code)="">
-        <input type="text" style="width: 50px" class="form-control mod-input" id="new-presence-code" v-model="codeNew" />
+        <input type="text" class="form-control mod-input mod-small" id="new-presence-code" v-model="codeNew" />
       </template>
       <template #foot(title)="">
         <b-input type="text" class="mod-input" v-model="titleNew" />
@@ -65,45 +60,40 @@
         </select>
       </template>
       <template #foot(color)="">
-        <button class="color" :class="colorNew" id="color-new"></button>
-        <b-popover :target="`color-new`" triggers="click blur" placement="right">
-          <div style="display:grid;grid-template-columns: repeat(10, 1fr);padding: 2px; grid-gap: 2px;">
-            <template v-for="variant in [100, 300, 500, 700, 900]">
-              <template v-for="color in ['pink', 'blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'deep-orange']">
-                <button :class="[`color ${color}-${variant}`, {'is-selected': colorNew === `${color}-${variant}`}]" :key="`color--${color}-${variant}`" style="width:20px;z-index:1000" @click="colorNew = `${color}-${variant}`"></button>
-              </template>
-            </template>
-          </div>
-        </b-popover>
+        <div class="u-flex">
+          <button class="color" :class="colorNew" id="color-new"></button>
+          <color-picker target="color-new" triggers="click blur" placement="right" :selected-color="colorNew" @color-selected="colorNew = $event"></color-picker>
+        </div>
       </template>
       <template #foot(actions)="">
-        <div>
-          <div>
-            <button class="btn btn-default btn-sm mod-presence" @click="onSaveNew" style="" :disabled="!(codeNew && titleNew && aliasNew > 0)">
+        <div class="actions-wrap">
+          <div class="actions-wrap-2">
+            <button class="btn btn-default btn-sm mod-presence" @click="onSaveNew" :disabled="!(codeNew && titleNew && aliasNew > 0)">
               <i class="fa fa-check-circle" aria-hidden="true"></i>
               <span class="sr-only">Save</span>
             </button>
-            <button class="btn btn-default btn-sm mod-presence" @click="onCancelNew" style="">
-              <i class="fa fa-minus-circle" aria-hidden="true" style="color:red"></i>
+            <button class="btn btn-default btn-sm mod-presence mod-cancel" @click="onCancelNew">
+              <i class="fa fa-minus-circle" aria-hidden="true"></i>
               <span class="sr-only">Cancel</span>
             </button>
           </div>
         </div>
       </template>
     </b-table>
-    <button v-if="!createNew" class="btn btn-primary" style="margin-top: 10px" @click="onCreateNew"><i class="fa fa-plus" style="font-size: 13px;margin-right:5px"></i> New presence status</button>
-    
+    <button v-if="!createNew" class="btn btn-primary mod-presence-new" @click="onCreateNew"><i class="fa fa-plus" aria-hidden="true"></i> New presence status</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { PresenceStatus } from '../types';
+import ColorPicker from './ColorPicker.vue';
 
 const DEFAULT_COLOR_NEW = 'yellow-100';
 
 @Component({
-  name: 'builder'
+  name: 'builder',
+  components: { ColorPicker }
 })
 export default class Builder extends Vue {
   readonly fields = [
@@ -180,6 +170,7 @@ export default class Builder extends Vue {
     this.aliasNew = 0;
     this.colorNew = DEFAULT_COLOR_NEW;
   }
+  
   setColorForItem(item: PresenceStatus, color: string) {
     if (item.color !== color) {
       item.color = color;
@@ -193,20 +184,3 @@ export default class Builder extends Vue {
   }
 }
 </script>
-<style scoped>
-th, td {
-  padding: 2px 4px;
-}
-th {
-  text-align: left;
-}
-.btn.mod-presence {
-  font-size: 14px;
-  padding: 2px 5px;
-  color: #4d88b3;
-  width: 25px;
-}
-.btn.mod-presence:not(:disabled) .fa-check-circle {
-  color: limegreen;
-}
-</style>
