@@ -191,7 +191,7 @@ export default class Main extends Vue {
 }
 
 .form-control.mod-select {
-  height: initial;
+  height: 26px;
   padding: 3px 5px;
   width: initial;
 }
@@ -317,15 +317,12 @@ export default class Main extends Vue {
   border-top-color: #ebebeb;
 }
 
-.table.mod-presence thead th {
+.table.mod-presence thead {
   background-color: #f8fbfb;
-  color: #727879;
 }
 
-@-moz-document url-prefix() {
-  .table.mod-presence thead th {
-    background-clip: padding-box;
-  }
+.table.mod-presence thead th {
+  color: #727879;
 }
 
 .table.mod-presence th, .table.mod-presence td {
@@ -338,15 +335,7 @@ export default class Main extends Vue {
 }
 
 .table.mod-presence tbody tr:first-child {
-  background: linear-gradient(to bottom, #e3eaed 0, transparent 4px);
-}
-
-@media not all and (min-resolution: .001dpcm) { 
-  @media {
-    .table.mod-presence tbody tr:first-child {
-      background: -webkit-linear-gradient(#e3eaed 0px, rgba(255,255,255,0) 4px);
-    }
-  }
+  background: linear-gradient(to bottom, #e3eaed 0, rgba(255, 255, 255, 0) 4px);
 }
 
 .table.mod-builder {
@@ -367,10 +356,6 @@ export default class Main extends Vue {
 }
 
 .table.mod-builder {
-  position: relative;
-}
-
-.table.mod-builder thead {
   position: relative;
 }
 
@@ -435,21 +420,6 @@ export default class Main extends Vue {
   }
 }
 
-@-moz-document url-prefix() {
-  .table.mod-builder tbody tr.is-selected:hover {
-    background: unset;
-  }
-
-  .table.mod-builder tbody tr:hover td:not(.table-actions) {
-    background: #f4fbfb;
-    background-clip: padding-box;
-  }
-
-  .table.mod-builder tbody tr:first-child:hover td:not(.table-actions) {
-    background: linear-gradient(to bottom, #e3eaed 0, #f4fbfb 4px);
-  }
-}
-
 .table.mod-builder tbody tr.is-selected {
   background: #ecf4f4;
 }
@@ -460,21 +430,6 @@ export default class Main extends Vue {
 
 .table.mod-builder tbody tr.is-selected td:not(.table-actions) {
   border-color: #e3e3e3;
-}
-
-@-moz-document url-prefix() {
-  .table.mod-builder tr.is-selected {
-    background: unset;
-  }
-
-  .table.mod-builder tbody tr.is-selected td:not(.table-actions) {
-    background: #ecf4f4;
-    background-clip: padding-box;
-  }
-
-  .table.mod-builder tbody tr:first-child.is-selected td:not(.table-actions) {
-    background: linear-gradient(to bottom, #e3eaed 0, #ecf4f4 4px);
-  }
 }
 
 .table.mod-builder tr.is-selected .table-actions {
@@ -525,7 +480,7 @@ export default class Main extends Vue {
 @media only screen and (max-width: 580px) {
   .table.mod-builder tfoot .actions-wrap-2 {
     position: absolute;
-    bottom: -35px;
+    bottom: -45px;
     left: -62px;
   }
 }
@@ -536,17 +491,20 @@ export default class Main extends Vue {
   box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
   color: #337ab7;
 }
+
 .radio-tabs-default:hover, .radio-tabs-default:focus {
   background-color: #fff;
   box-shadow: 0 1px 2px hsla(208, 55%, 25%, .10);
   color: #507177;
 }
+
 .radio-tabs {
   cursor: pointer;
   font-weight: normal;
   margin: 0;
   padding: 0 .5em;
 }
+
 .radio-tabs-active, .radio-tabs-active:hover, .radio-tabs-active:focus  {
   background-color: #fff;
   box-shadow: 0 1px 2px hsla(208, 55%, 25%, .40);

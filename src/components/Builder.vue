@@ -2,16 +2,16 @@
   <div @click="selectedStatus = null">
     <b-table bordered :foot-clone="createNew" :items="presenceStatuses" :fields="fields" class="mod-presence mod-builder" :class="{'is-changes-disabled': createNew}" :tbody-tr-class="rowClass">
       <template #cell(code)="status">
-        <div class="cell-pad" @click.stop="onSelectStatus(status.item)"><b-input type="text" v-model="status.item.code" :disabled="createNew" class="mod-input mod-small" @input="onInput(status.item)"/></div>
+        <div class="cell-pad" @click.stop="onSelectStatus(status.item)"><b-input type="text" v-model="status.item.code" autocomplete="off" :disabled="createNew" class="mod-input mod-small" @input="onInput(status.item)"/></div>
       </template>
       <template #cell(title)="status">
         <div class="cell-pad" @click.stop="onSelectStatus(status.item)">
-          <template v-if="status.item.type === 'fixed'">{{ status.item.title }}</template>
-          <b-input v-else type="text" v-model="status.item.title" :disabled="createNew" class="mod-input" @input="onInput(status.item)" />
+          <template v-if="status.item.type === 'fixed'"><span style="line-height: 26px">{{ status.item.title }}</span></template>
+          <b-input v-else type="text" v-model="status.item.title" autocomplete="off" :disabled="createNew" class="mod-input" @input="onInput(status.item)" />
         </div>
       </template>
       <template #cell(meaning)="status">
-        <div class="cell-pad" @click.stop="onSelectStatus(status.item)">
+        <div class="cell-pad" style="line-height: 26px" @click.stop="onSelectStatus(status.item)">
           <span v-if="!status.item.aliasses">{{ status.item.title }}</span>
           <template v-else>
             <span v-if="status.item.type === 'fixed'">
@@ -24,7 +24,7 @@
         </div>
       </template>
       <template #cell(color)="status">
-        <div class="u-flex cell-pad" @click.stop="onSelectStatus(status.item)">
+        <div class="u-flex cell-pad" style="align-items: center; height: 42px;" @click.stop="onSelectStatus(status.item)">
           <button :id="`color-${status.index}`" class="color" :class="[{'is-selected': status.item === selectedStatus}, status.item.color]" :disabled="createNew"></button>
           <color-picker :target="`color-${status.index}`" triggers="click blur" placement="right" :selected-color="status.item.color" @color-selected="setColorForItem(status.item, $event)"></color-picker>
         </div>
