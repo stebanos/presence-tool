@@ -161,8 +161,8 @@ export default class Main extends Vue {
   white-space: nowrap;
 }
 
-.btn.mod-presence-new {
-  margin-top: 10px;
+.btn.mod-presence-save:focus {
+  color: #fff;
 }
 
 .btn.mod-presence-new .fa {
@@ -170,7 +170,7 @@ export default class Main extends Vue {
   margin-right: 5px;
 }
 
-.btn.mod-presence {
+.btn.btn-default.mod-presence {
   color: #4d88b3;
   font-size: 14px;
   padding: 2px 5px;
