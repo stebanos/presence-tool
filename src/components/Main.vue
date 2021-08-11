@@ -9,8 +9,8 @@
         <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove"></builder>
       </div>
       <div>
-        <h2 class="presence-header">Preview Entry 'Presence 1'</h2>
-        <preview-entry :presence-statuses="orderedPresenceStatuses" :preview-students="preview_students" :options="preview_options"></preview-entry>
+        <h2 class="presence-header">Preview Entry</h2>
+        <preview-entry :presence-statuses="orderedPresenceStatuses" :preview-students="preview_students"></preview-entry>
       </div>
     </div>
   </div>
@@ -33,10 +33,6 @@ export default class Main extends Vue {
   connector: Connector|null = null;
   presence: Presence|null = null;
   tab = 'builder';
-  
-  readonly preview_options = {
-    display_selected: 'color-code'
-  };
   
   readonly preview_students = [
     { name: 'Student 1', selected: 1 }, 
