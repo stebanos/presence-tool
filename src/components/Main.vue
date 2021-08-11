@@ -486,7 +486,7 @@ export default class Main extends Vue {
   }
 }
 
-.radio-tabs-default {
+/*.radio-tabs-default {
   background-color: rgba(255, 255, 255, .45);
   border-radius: 3px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
@@ -510,7 +510,7 @@ export default class Main extends Vue {
   background-color: #fff;
   box-shadow: 0 1px 2px hsla(208, 55%, 25%, .40);
   color: #507177;
-}
+}*/
 
 .table.mod-entry th.table-result {
   max-width: 1px;
@@ -533,7 +533,7 @@ export default class Main extends Vue {
   max-width: fit-content;
 }
 
-.table-period:after {
+.table.mod-entry tbody .table-period:after {
   background-color: #ebebeb;
   bottom: 8px;
   content: '';
