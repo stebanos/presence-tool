@@ -4,5 +4,11 @@ module.exports = {
       shouldServeApp: true,
       serverDir: 'server'
     }
+  },
+  css: {
+      loaderOptions: {
+          scss: {
+          }
+      }
   }
 }

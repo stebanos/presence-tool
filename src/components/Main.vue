@@ -39,9 +39,11 @@ export default class Main extends Vue {
   };
   
   readonly preview_students = [
-    { name: 'Student 1', selected: 3 }, 
-    { name: 'Student 2', selected: 3 }, 
+    { name: 'Student 1', selected: 1 }, 
+    { name: 'Student 2', selected: 2 }, 
     { name: 'Student 3', selected: 3 }, 
+    { name: 'Student 4', selected: 4 }, 
+    { name: 'Student 5', selected: 5 },
   ];
 
   @Prop({type: APIConfig, required: true}) readonly apiConfig!: APIConfig;
@@ -263,9 +265,12 @@ export default class Main extends Vue {
   transition: background 75ms linear, color 75ms linear;
 }
 
-.color.is-selected, .table.mod-presence .color:hover,
-.color-code.is-selected, .table-period .color-code:hover {
+.table.mod-builder .color.is-selected, .table.mod-builder .color:hover, .table-period .color-code:not(.is-selected):hover {
   box-shadow: 1px 1px 2px -1px #673ab7;
+}
+
+.color-code.is-selected {
+  box-shadow: 0 0 0 .2rem var(--selected-color);
 }
 
 .color.mod-swatch.is-selected {
@@ -302,14 +307,14 @@ export default class Main extends Vue {
   background-color: inherit;
   border: 1px solid rgba(255, 255, 255, .92);
   border-radius: 50%;
-  bottom: -4px;
+  bottom: -5px;
   content: '\f00c';
   font-family: 'FontAwesome';
   font-size: 11px;
   font-weight: 400;
   line-height: 8px;
   position: absolute;
-  right: -4px;
+  right: -5px;
   z-index: 10;
 }
 
@@ -544,7 +549,7 @@ export default class Main extends Vue {
 }
 </style>
 
-<style>
+<style lang="scss">
 :root {
   --text-color-dark: #333;
   --text-color-light: #fff;
@@ -557,65 +562,65 @@ export default class Main extends Vue {
  *  https://www.google.com/design/spec/style/color.html
  */
 
-.pink-100 { --color: #f8bbd0; --text-color: var(--text-color-dark); }
-.pink-300 { --color: #f06292; --text-color: var(--text-color-light); }
-.pink-500 { --color: #e91e63; --text-color: var(--text-color-light); }
-.pink-700 { --color: #c2185b; --text-color: var(--text-color-light); }
-.pink-900 { --color: #880e4f; --text-color: var(--text-color-light); }
+.pink-100 { $color: #f8bbd0; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.pink-300 { $color: #f06292; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 20%)}; }
+.pink-500 { $color: #e91e63; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 30%)}; }
+.pink-700 { $color: #c2185b; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 40%)}; }
+.pink-900 { $color: #880e4f; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 50%)}; }
 
-.blue-100 { --color: #bbdefb; --text-color: var(--text-color-dark); }
-.blue-300 { --color: #64b5f6; --text-color: var(--text-color-light); }
-.blue-500 { --color: #2196f3; --text-color: var(--text-color-light); }
-.blue-700 { --color: #1976d2; --text-color: var(--text-color-light); }
-.blue-900 { --color: #0d47a1; --text-color: var(--text-color-light); }
+.blue-100 { $color: #bbdefb; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.blue-300 { $color: #64b5f6; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 15%)}; }
+.blue-500 { $color: #2196f3; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 25%)}; }
+.blue-700 { $color: #1976d2; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 30%)}; }
+.blue-900 { $color: #0d47a1; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 40%)}; }
 
-.cyan-100 { --color: #b2ebf2; --text-color: var(--text-color-dark); }
-.cyan-300 { --color: #4dd0e1; --text-color: var(--text-color-light); }
-.cyan-500 { --color: #00bcd4; --text-color: var(--text-color-light); }
-.cyan-700 { --color: #0097a7; --text-color: var(--text-color-light); }
-.cyan-900 { --color: #006064; --text-color: var(--text-color-light); }
+.cyan-100 { $color: #b2ebf2; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.cyan-300 { $color: #4dd0e1; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 25%)}; }
+.cyan-500 { $color: #00bcd4; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 5%)}; }
+.cyan-700 { $color: #0097a7; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 15%)}; }
+.cyan-900 { $color: #006064; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 25%)}; }
 
-.teal-100 { --color: #b2dfdb; --text-color: var(--text-color-light); }
-.teal-300 { --color: #4db6ac; --text-color: var(--text-color-light); }
-.teal-500 { --color: #009688; --text-color: var(--text-color-light); }
-.teal-700 { --color: #00796b; --text-color: var(--text-color-light); }
-.teal-900 { --color: #004d40; --text-color: var(--text-color-light); }
+.teal-100 { $color: #b2dfdb; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.teal-300 { $color: #4db6ac; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 25%)}; }
+.teal-500 { $color: #009688; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 5%)}; }
+.teal-700 { $color: #00796b; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 15%)}; }
+.teal-900 { $color: #004d40; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 20%)}; }
 
-.green-100 { --color: #c8e6c9; --text-color: var(--text-color-dark); }
-.green-300 { --color: #81c784; --text-color: var(--text-color-light); }
-.green-500 { --color: #4caf50; --text-color: var(--text-color-light); }
-.green-700 { --color: #388e3c; --text-color: var(--text-color-light); }
-.green-900 { --color: #1b5e20; --text-color: var(--text-color-light); }
+.green-100 { $color: #c8e6c9; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.green-300 { $color: #81c784; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 10%)}; }
+.green-500 { $color: #4caf50; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 10%)}; }
+.green-700 { $color: #388e3c; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)}; }
+.green-900 { $color: #1b5e20; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 25%)}; }
 
-.light-green-100 { --color: #dcedc8; --text-color: var(--text-color-dark); }
-.light-green-300 { --color: #aed581; --text-color: var(--text-color-light); }
-.light-green-500 { --color: #8bc34a; --text-color: var(--text-color-light); }
-.light-green-700 { --color: #689f38; --text-color: var(--text-color-light); }
-.light-green-900 { --color: #33691e; --text-color: var(--text-color-light); }
+.light-green-100 { $color: #dcedc8; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 15%)}; }
+.light-green-300 { $color: #aed581; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)}; }
+.light-green-500 { $color: #8bc34a; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)}; }
+.light-green-700 { $color: #689f38; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)}; }
+.light-green-900 { $color: #33691e; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 25%)}; }
 
-.lime-100 { --color: #f0f4c3; --text-color: var(--text-color-dark); }
-.lime-300 { --color: #dce775; --text-color: var(--text-color-dark); }
-.lime-500 { --color: #cddc39; --text-color: var(--text-color-dark); }
-.lime-700 { --color: #afb42b; --text-color: var(--text-color-light); }
-.lime-900 { --color: #827717; --text-color: var(--text-color-light); }
+.lime-100 { $color: #f0f4c3; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 15%)}; }
+.lime-300 { $color: #dce775; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 15%)}; }
+.lime-500 { $color: #cddc39; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.lime-700 { $color: #afb42b; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 10%)}; }
+.lime-900 { $color: #827717; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 20%)}; }
 
-.yellow-100 { --color: #fff9c4; --text-color: var(--text-color-dark); }
-.yellow-300 { --color: #fff176; --text-color: var(--text-color-dark); }
-.yellow-500 { --color: #ffeb3b; --text-color: var(--text-color-dark); }
-.yellow-700 { --color: #fbc02d; --text-color: var(--text-color-dark); }
-.yellow-900 { --color: #f57f17; --text-color: var(--text-color-light); }
+.yellow-100 { $color: #fff9c4; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 30%)}; }
+.yellow-300 { $color: #fff176; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 25%)}; }
+.yellow-500 { $color: #ffeb3b; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 15%)}; }
+.yellow-700 { $color: #fbc02d; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.yellow-900 { $color: #f57f17; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 10%)}; }
 
-.amber-100 { --color: #ffecb3; --text-color: var(--text-color-dark); }
-.amber-300 { --color: #ffd54f; --text-color: var(--text-color-dark); }
-.amber-500 { --color: #ffc107; --text-color: var(--text-color-dark); }
-.amber-700 { --color: #ffa000; --text-color: var(--text-color-light); }
-.amber-900 { --color: #ff6f00; --text-color: var(--text-color-light); }
+.amber-100 { $color: #ffecb3; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 20%)}; }
+.amber-300 { $color: #ffd54f; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 20%)}; }
+.amber-500 { $color: #ffc107; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.amber-700 { $color: #ffa000; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 7%)}; }
+.amber-900 { $color: #ff6f00; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 10%)}; }
 
-.deep-orange-100 { --color: #ffccbc; --text-color: var(--text-color-dark); }
-.deep-orange-300 { --color: #ff8a65; --text-color: var(--text-color-light); }
-.deep-orange-500 { --color: #ff5722; --text-color: var(--text-color-light); }
-.deep-orange-700 { --color: #e64a19; --text-color: var(--text-color-light); }
-.deep-orange-900 { --color: #bf360c; --text-color: var(--text-color-light); }
+.deep-orange-100 { $color: #ffccbc; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)};}
+.deep-orange-300 { $color: #ff8a65; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 20%)};}
+.deep-orange-500 { $color: #ff5722; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)};}
+.deep-orange-700 { $color: #e64a19; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)};}
+.deep-orange-900 { $color: #bf360c; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 30%)};}
 </style>
 
 <style>
