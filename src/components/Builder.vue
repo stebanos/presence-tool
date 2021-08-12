@@ -79,10 +79,10 @@
         </div>
       </template>
     </b-table>
-    <div style="margin-top: 10px">
-      <button v-if="!createNew" class="btn btn-sm mod-presence-new" @click="onCreateNew"><i class="fa fa-plus" aria-hidden="true"></i> New presence status</button>
+    <div style="margin-top: 10px" v-if="!createNew">
+      <button class="btn btn-sm mod-presence-new" @click="onCreateNew"><i class="fa fa-plus" aria-hidden="true"></i> New presence status</button>
     </div>
-    <div style="margin-top: 10px">
+    <div style="margin-top: 10px" v-if="!createNew">
       <button class="btn btn-primary mod-presence-save">Save</button>
     </div>
   </div>
