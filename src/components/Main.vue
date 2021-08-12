@@ -212,16 +212,17 @@ export default class Main extends Vue {
   margin: 0 0 25px 8px;
 }
 
-.presence-header + div {
-  margin-right: 20px;
-}
-
 .presence-builder {
   align-items: baseline;
   display: flex;
-  flex-flow: wrap;
-  gap: 40px 70px;
+  gap: 40px;
   margin: 25px 20px 20px;
+}
+
+@media only screen and (max-width: 840px) {
+  .presence-builder {
+    flex-flow: wrap;
+  }
 }
 
 .presence-swatches {
@@ -318,8 +319,12 @@ export default class Main extends Vue {
   border-top-color: #ebebeb;
 }
 
-.table.mod-presence thead {
+.table.mod-presence thead th:not(.table-actions) {
   background-color: #f8fbfb;
+}
+
+.table.mod-presence.mod-builder thead th:not(.table-actions) {
+  border-top: 1px solid #ebebeb;
 }
 
 .table.mod-presence thead th {
@@ -331,12 +336,27 @@ export default class Main extends Vue {
   vertical-align: middle;
 }
 
+.table.mod-presence .table-actions {
+  border: 0;
+}
+
+.table.mod-builder {
+  border-right: 0;
+  border-bottom: 0;
+  border-top: 0;
+}
+
 .table.mod-presence tbody {
   transition: opacity 200ms linear;
 }
 
-.table.mod-presence tbody tr:first-child {
+.table.mod-presence thead th {
+  border-bottom: 0;
+}
+
+.table.mod-presence tbody tr:first-child td:not(.table-actions) {
   background: linear-gradient(to bottom, #e3eaed 0, rgba(255, 255, 255, 0) 4px);
+  border-top: 0;
 }
 
 .table.mod-builder {
@@ -360,25 +380,6 @@ export default class Main extends Vue {
   position: relative;
 }
 
-.table.mod-builder .table-actions {
-  background: #fff;
-  padding: 0;
-  position: absolute;
-}
-
-.table.mod-builder thead .table-actions {
-  border: 0;
-  bottom: -1px;
-  top: -1px;
-  width: 1px;
-}
-
-.table.mod-builder tbody .table-actions {
-  border-color: #fff;
-  bottom: 0;
-  top: 0;
-}
-
 .table.mod-builder td {
   padding: 0;
 }
@@ -387,33 +388,30 @@ export default class Main extends Vue {
   padding: 8px;
 }
 
-@media only screen and (min-width: 460px) {
-  .table.mod-builder tbody .actions-wrap {
-    align-items: center;
-    height: 100%;
-    justify-content: center;
-    margin-left: 8px;
-  }
-  .table.mod-builder tbody .actions-wrap-2 {
-    flex-direction: column;
-  }
+.table.mod-builder .cell-pad-x {
+  padding: 0 8px;
 }
 
 @media only screen and (max-width: 459px) {
-  .table.mod-builder .actions-wrap-2 {
+  .table.mod-builder .presence-actions {
     position: absolute;
-    right: 0;
-    bottom: -35px;
+    right: 17px;
+    bottom: -45px;
+  }
+  
+  .table.mod-builder .btn.mod-presence {
+    font-size: 20px;
+    width: unset;
   }
 }
 
 @media (pointer:fine) {
-  .table.mod-builder tbody tr:hover {
+  .table.mod-builder tbody tr:hover td:not(.table-actions) {
     background: #f4fbfb;
     cursor: pointer;
   }
-
-  .table.mod-builder tbody tr:first-child:hover {
+  
+  .table.mod-builder tbody tr:first-child:hover td:not(.table-actions) {
     background: linear-gradient(to bottom, #e3eaed 0, #f4fbfb 4px);
   }
 
@@ -422,11 +420,11 @@ export default class Main extends Vue {
   }
 }
 
-.table.mod-builder tbody tr.is-selected {
+.table.mod-builder tbody tr.is-selected td:not(.table-actions){
   background: #ecf4f4;
 }
 
-.table.mod-builder tbody tr.is-selected:first-child {
+.table.mod-builder tbody tr.is-selected:first-child td:not(.table-actions) {
   background: linear-gradient(to bottom, #e3eaed 0, #ecf4f4 4px);
 }
 
@@ -440,57 +438,18 @@ export default class Main extends Vue {
   cursor: unset;
 }
 
-.table.mod-builder tr.is-selected .table-actions {
-  z-index: 100;
-}
-
 .table.mod-builder tr.is-selected .btn.mod-presence:last-child:not(:disabled) {
   color: red;
+}
+
+.table.mod-builder tbody tr:not(.is-selected) .table-actions {
+  pointer-events: none;
 }
 
 .table.mod-builder tbody tr:not(.is-selected) .btn.mod-presence {
   pointer-events: none;
   opacity: 0;
   box-shadow: none;
-}
-
-.table.mod-builder tfoot {
-  position: relative;
-}
-
-.table.mod-builder tfoot .table-actions {
-  bottom: 0;
-  top: 0;
-  width: 1px;
-}
-
-.table.mod-builder tfoot .actions-wrap {
-  align-items: flex-end;
-  background: #fff;
-  border: 1px solid #fff;
-  border-left: 0;
-  bottom: -1px;
-  display: flex;
-  left: -1px;
-  position: absolute;
-  top: -2px;
-  width: 70px;
-}
-
-.table.mod-builder tfoot .actions-wrap-2 {
-  display: flex;
-  gap: 5px;
-  justify-content: center;
-  margin-bottom: 8px;
-  width: 100%;
-}
-
-@media only screen and (max-width: 580px) {
-  .table.mod-builder tfoot .actions-wrap-2 {
-    position: absolute;
-    bottom: -45px;
-    left: -62px;
-  }
 }
 
 /*.radio-tabs-default {

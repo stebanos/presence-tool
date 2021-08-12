@@ -30,8 +30,8 @@
         </div>
       </template>
       <template #cell(actions)="status">
-        <div class="u-flex actions-wrap">
-          <div class="u-flex u-gap-small actions-wrap-2">
+        <div class="cell-pad-x">
+          <div class="u-flex u-gap-small presence-actions">
             <button class="btn btn-default btn-sm mod-presence" :disabled="createNew || status.index === 0" @click.stop="onMoveUp(status)" :id="`btn-up-${status.index}`" @focus="onSelectStatus(status.item)">
               <i class="fa fa-arrow-up" aria-hidden="true"></i>
               <span class="sr-only">Move up</span>
@@ -65,17 +65,15 @@
         </div>
       </template>
       <template #foot(actions)="">
-        <div class="actions-wrap">
-          <div class="actions-wrap-2">
-            <button class="btn btn-default btn-sm mod-presence" @click.stop="onSaveNew" :disabled="!(codeNew && titleNew && aliasNew > 0)">
-              <i class="fa fa-check-circle" aria-hidden="true"></i>
-              <span class="sr-only">Save</span>
-            </button>
-            <button class="btn btn-default btn-sm mod-presence mod-cancel" @click.stop="onCancelNew">
-              <i class="fa fa-minus-circle" aria-hidden="true"></i>
-              <span class="sr-only">Cancel</span>
-            </button>
-          </div>
+        <div class="u-flex u-gap-small presence-actions">
+          <button class="btn btn-default btn-sm mod-presence" @click.stop="onSaveNew" :disabled="!(codeNew && titleNew && aliasNew > 0)">
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            <span class="sr-only">Save</span>
+          </button>
+          <button class="btn btn-default btn-sm mod-presence mod-cancel" @click.stop="onCancelNew">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i>
+            <span class="sr-only">Cancel</span>
+          </button>
         </div>
       </template>
     </b-table>
