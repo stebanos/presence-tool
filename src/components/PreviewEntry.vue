@@ -2,7 +2,7 @@
   <b-table bordered :items="previewStudents" :fields="fields" class="mod-presence mod-entry">
     <template #cell(period)="data">
       <div class="u-flex u-gap-small u-flex-wrap">
-        <button v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color-code" :class="[status.color, { 'is-selected': data.item.selected === status.id }]" @click="data.item.selected = status.id" :aria-pressed="data.item.selected === status.id ? 'true': 'false'">{{ status.code }}</button>
+        <button v-for="(status, index) in presenceStatuses" :key="`status-${index}`" class="color-code" :class="[status.color, { 'is-selected': data.item.selected === status.id }]" @click="data.item.selected = status.id" :aria-pressed="data.item.selected === status.id ? 'true': 'false'"><span>{{ status.code }}</span></button>
       </div>
     </template>
     <template #head(period-result)="">&nbsp;

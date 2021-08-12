@@ -286,14 +286,17 @@ export default class Main extends Vue {
 
 .color-code {
   display: flex;
-  font-size: 14px;
-  font-variant: all-small-caps;
-  font-weight: 900;
   height: 20px;
-  line-height: 12px;
   min-width: 40px;
   padding: 2px 4px;
   justify-content: center;
+}
+
+.color-code > span {
+  font-size: 14px;
+  font-variant: all-small-caps;
+  font-weight: 900;
+  line-height: 12px;
 }
 
 .color-code.is-selected {
@@ -302,14 +305,15 @@ export default class Main extends Vue {
 
 .color-code.is-selected:after {
   background-color: inherit;
-  border: 1px solid rgba(255, 255, 255, .92);
+/*  border: 1px solid rgba(255, 255, 255, .92);*/
   border-radius: 50%;
   bottom: -5px;
   content: '\f00c';
   font-family: 'FontAwesome';
-  font-size: 11px;
+  font-size: 8px;
   font-weight: 400;
   line-height: 8px;
+  padding: 2px 1px 1px 2px;
   position: absolute;
   right: -5px;
   z-index: 10;
