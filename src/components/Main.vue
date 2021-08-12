@@ -410,6 +410,7 @@ export default class Main extends Vue {
 @media (pointer:fine) {
   .table.mod-builder tbody tr:hover {
     background: #f4fbfb;
+    cursor: pointer;
   }
 
   .table.mod-builder tbody tr:first-child:hover {
@@ -431,6 +432,12 @@ export default class Main extends Vue {
 
 .table.mod-builder tbody tr.is-selected td:not(.table-actions) {
   border-color: #e3e3e3;
+}
+
+.table.mod-builder.is-changes-disabled tbody tr, .table.mod-builder.is-changes-disabled tbody tr:hover  {
+  background: unset;
+  border-color: unset;
+  cursor: unset;
 }
 
 .table.mod-builder tr.is-selected .table-actions {
