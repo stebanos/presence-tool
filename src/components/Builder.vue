@@ -55,7 +55,6 @@
       </template>
       <template #foot(meaning)="">
         <select class="form-control mod-select" v-model="aliasNew">
-          <option value="0">Choose meaning...</option>
           <option v-for="(statusDefault, index) in statusDefaults" :key="`fs-${index}`" :value="statusDefault.id">{{ statusDefault.title }}</option>
         </select>
       </template>
@@ -112,7 +111,7 @@ export default class Builder extends Vue {
   createNew = false;
   codeNew = '';
   titleNew = '';
-  aliasNew = 0;
+  aliasNew = 3;
   colorNew = DEFAULT_COLOR_NEW;
   
   selectedStatus: PresenceStatus|null = null;
@@ -176,7 +175,7 @@ export default class Builder extends Vue {
     this.createNew = false;
     this.codeNew = '';
     this.titleNew = '';
-    this.aliasNew = 0;
+    this.aliasNew = 3;
     this.colorNew = DEFAULT_COLOR_NEW;
   }
   
