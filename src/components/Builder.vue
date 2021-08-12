@@ -2,12 +2,12 @@
   <div @click.stop="selectedStatus = null">
     <b-table bordered :foot-clone="createNew" :items="presenceStatuses" :fields="fields" class="mod-presence mod-builder" :class="{'is-changes-disabled': createNew}" :tbody-tr-class="rowClass">
       <template #cell(code)="status">
-        <div class="cell-pad" @click.stop="onSelectStatus(status.item)"><b-input type="text" v-model="status.item.code" autocomplete="off" :disabled="createNew" class="mod-input mod-small" @input="onInput(status.item)" @focus="onSelectStatus(status.item)" /></div>
+        <div class="cell-pad" @click.stop="onSelectStatus(status.item)"><b-input type="text" v-model="status.item.code" autocomplete="off" :disabled="createNew" class="mod-input mod-small" @focus="onSelectStatus(status.item)" /></div>
       </template>
       <template #cell(title)="status">
         <div class="cell-pad" @click.stop="onSelectStatus(status.item)">
           <template v-if="status.item.type === 'fixed'"><span style="line-height: 26px">{{ status.item.title }}</span></template>
-          <b-input v-else type="text" v-model="status.item.title" autocomplete="off" :disabled="createNew" class="mod-input" @input="onInput(status.item)" @focus="onSelectStatus(status.item)" />
+          <b-input v-else type="text" v-model="status.item.title" autocomplete="off" :disabled="createNew" class="mod-input" @focus="onSelectStatus(status.item)" />
         </div>
       </template>
       <template #cell(meaning)="status">
@@ -17,7 +17,7 @@
             <span v-if="status.item.type === 'fixed'">
               {{ statusDefaults.find(s => s.id === status.item.aliasses).title }}
             </span>
-            <select v-else class="form-control mod-select" :disabled="createNew" @change="onInput(status.item)" @focus="onSelectStatus(status.item)">
+            <select v-else class="form-control mod-select" :disabled="createNew" @focus="onSelectStatus(status.item)">
               <option v-for="(statusDefault, index) in statusDefaults" :key="`fs-${index}`" :value="statusDefault.id" :selected="status.item.aliasses === statusDefault.id">{{ statusDefault.title }}</option>
             </select>
           </template>
@@ -167,10 +167,6 @@ export default class Builder extends Vue {
     });
   }
   
-  onInput(status: PresenceStatus) {
-    console.log(status);
-  }
-  
   resetNew() {
     this.createNew = false;
     this.codeNew = '';
@@ -182,7 +178,6 @@ export default class Builder extends Vue {
   setColorForItem(item: PresenceStatus, color: string) {
     if (item.color !== color) {
       item.color = color;
-      this.onInput(item);
     }
   }
   
