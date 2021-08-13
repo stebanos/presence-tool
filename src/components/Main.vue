@@ -133,7 +133,17 @@ export default class Main extends Vue {
   color: #fff;
 }
 
-.btn.mod-presence-new .fa {
+.presence-new {
+  color: #337ab7;
+  cursor: pointer;
+}
+
+.presence-new:hover, .presence-new:focus {
+  color: #23527c;
+  text-decoration: none;
+}
+
+.presence-new .fa {
   font-size: 13px;
   margin-right: 5px;
 }

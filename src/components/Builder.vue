@@ -73,9 +73,9 @@
       </template>
     </b-table>
     <div style="margin: 8px 0 0 8px" v-if="!createNew">
-      <a class="btn btn-sm mod-presence-new" @click="onCreateNew" style="padding:0"><i class="fa fa-plus" aria-hidden="true" style="font-size:13px; margin-right: 5px"></i> New presence status</a>
+      <a class="presence-new" @click="onCreateNew"><i class="fa fa-plus" aria-hidden="true"></i> New presence status</a>
     </div>
-    <div style="margin: 10px 0 0 8px" v-if="!createNew">
+    <div style="margin: 16px 0 0 8px" v-if="!createNew">
       <button class="btn btn-primary mod-presence-save" @click="$emit('save')">Save</button>
     </div>
   </div>
