@@ -205,7 +205,7 @@ export default class Main extends Vue {
 .presence-swatches {
   display: grid;
   grid-gap: 2px;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(11, 1fr);
   padding: 2px;
 }
 
@@ -568,11 +568,18 @@ export default class Main extends Vue {
 .amber-700 { $color: #ffa000; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 7%)}; }
 .amber-900 { $color: #ff6f00; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 10%)}; }
 
-.deep-orange-100 { $color: #ffccbc; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)};}
-.deep-orange-300 { $color: #ff8a65; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 20%)};}
-.deep-orange-500 { $color: #ff5722; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)};}
-.deep-orange-700 { $color: #e64a19; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)};}
-.deep-orange-900 { $color: #bf360c; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 30%)};}
+.deep-orange-100 { $color: #ffccbc; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 10%)}; }
+.deep-orange-300 { $color: #ff8a65; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 20%)}; }
+.deep-orange-500 { $color: #ff5722; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)}; }
+.deep-orange-700 { $color: #e64a19; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{darken($color, 15%)}; }
+.deep-orange-900 { $color: #bf360c; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 30%)}; }
+
+.grey-100 { $color: #f5f5f5; --color: #{$color}; --text-color: var(--text-color-dark);  --selected-color: #{darken($color, 20%)}; }
+.grey-300 { $color: #e0e0e0; --color: #{$color}; --text-color: var(--text-color-dark); --selected-color: #{darken($color, 30%)}; }
+.grey-500 { $color: #9e9e9e; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 15%)}; }
+.grey-700 { $color: #616161; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 45%)}; }
+.grey-900 { $color: #212121; --color: #{$color}; --text-color: var(--text-color-light); --selected-color: #{lighten($color, 55%)}; }
+
 </style>
 
 <style>

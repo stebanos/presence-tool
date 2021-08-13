@@ -19,7 +19,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class ColorPicker extends Vue {
   
   readonly variants = [100, 300, 500, 700, 900];
-  readonly colors = ['pink', 'blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'deep-orange'];
+  readonly colors = ['pink', 'blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'deep-orange', 'grey'];
   
   @Prop({type: String, required: true}) readonly target!: string;
   @Prop({type: String, default: 'click'}) readonly triggers!: string;
