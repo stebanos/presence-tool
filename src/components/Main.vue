@@ -35,11 +35,8 @@ export default class Main extends Vue {
   tab = 'builder';
   
   readonly preview_students = [
-    { name: 'Student 1', selected: 1 }, 
-    { name: 'Student 2', selected: 2 }, 
-    { name: 'Student 3', selected: 3 }, 
-    { name: 'Student 4', selected: 4 }, 
-    { name: 'Student 5', selected: 5 },
+    { name: 'Student 1', selected: null },
+    { name: 'Student 2', selected: null }
   ];
 
   @Prop({type: APIConfig, required: true}) readonly apiConfig!: APIConfig;
