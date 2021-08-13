@@ -36,8 +36,29 @@ const api = {
     };
   },
   
-  updatePresences: (req, res) => {
-    api._json(res, {'text-message': 'ok'});
+  updatePresences: async (req, res) => {
+    try {
+      const reqData = JSON.parse(req.body.data);
+      const { id, statuses } = reqData;
+      api.validateStatuses(statuses);
+      const data = await fs.readFile(`./data/presences.json`);
+      const presences = JSON.parse(data);
+      const index = presences.findIndex(p => p.id === id);
+      if (index === -1) {
+        throw `Presence with id '${id}' not found.`;
+      }
+      const presence = presences[index];
+      presence.statuses = statuses;
+      await fs.writeFile('./data/presences.json', JSON.stringify(presences));
+      api._json(res, {'text-message': 'ok'});
+    } catch (err) {
+      // console.log(err);
+      api._error(res, err);
+    }
+  },
+  
+  validateStatuses: statuses => {
+    // console.log(statuses);
   }
 };
 

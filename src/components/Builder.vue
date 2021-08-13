@@ -13,8 +13,8 @@
       <template #cell(meaning)="status">
         <div class="cell-pad" style="line-height: 26px" @click.stop="onSelectStatus(status.item)">
           <span v-if="status.item.type === 'fixed' || status.item.type === 'semifixed'">{{ getStatusDefault(status.item, true).title }}</span>
-          <select v-else class="form-control mod-select" :disabled="createNew" @focus="onSelectStatus(status.item)">
-            <option v-for="(statusDefault, index) in fixedStatusDefaults" :key="`fs-${index}`" :value="statusDefault.id" :selected="status.item.aliasses === statusDefault.id">{{ statusDefault.title }}</option>
+          <select v-else class="form-control mod-select" :disabled="createNew" @focus="onSelectStatus(status.item)" v-model="status.item.aliasses">
+            <option v-for="(statusDefault, index) in fixedStatusDefaults" :key="`fs-${index}`" :value="statusDefault.id">{{ statusDefault.title }}</option>
           </select>
         </div>
       </template>
@@ -76,7 +76,7 @@
       <a class="btn btn-sm mod-presence-new" @click="onCreateNew" style="padding:0"><i class="fa fa-plus" aria-hidden="true" style="font-size:13px; margin-right: 5px"></i> New presence status</a>
     </div>
     <div style="margin: 10px 0 0 8px" v-if="!createNew">
-      <button class="btn btn-primary mod-presence-save">Save</button>
+      <button class="btn btn-primary mod-presence-save" @click="$emit('save')">Save</button>
     </div>
   </div>
 </template>

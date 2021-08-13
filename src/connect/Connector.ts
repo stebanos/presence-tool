@@ -1,6 +1,7 @@
 import axios from 'axios';
 import APIConfig from './APIConfig';
 import PQueue from 'p-queue';
+import { PresenceStatus } from '../types';
 
 const TIMEOUT_SEC = 30;
 
@@ -50,6 +51,13 @@ export default class Connector {
     return res.data;
   }
   
+  async updatePresences(id: number, statuses: PresenceStatus[]) {
+    this.addToQueue(async () => {
+      const parameters = { data: JSON.stringify({ id, statuses }) };
+      const res = await this.executeAPIRequest(this.apiConfig.updatePresencesURL, parameters);
+    });
+  }
+
   private addToQueue(callback: Function) {
       if (this.hasError) { return; }
       this.queue.add(async () => {
@@ -76,7 +84,7 @@ export default class Connector {
           throw err;
       }
       if (typeof res.data === 'object') {
-        console.log('result', res.data);
+        //console.log('result', res.data);
         return res.data;
       }
       

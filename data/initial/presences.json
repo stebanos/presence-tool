@@ -1,6 +1,6 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "title": "Presence 2021-2022",
     "statuses": [
       {"id": 1, "type": "fixed", "code": "abs", "color": "deep-orange-500"}, 

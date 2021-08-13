@@ -6,7 +6,7 @@
     <div v-if="tab === 'builder'" class="presence-builder">
       <div>
         <h2 class="presence-header">Builder</h2>
-        <builder :presence-statuses="presenceStatuses" :status-defaults="statusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove"></builder>
+        <builder :presence-statuses="presenceStatuses" :status-defaults="statusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove" @save="onSave"></builder>
       </div>
       <div>
         <h2 class="presence-header">Preview Entry</h2>
@@ -84,8 +84,9 @@ export default class Main extends Vue {
   
   onCreate(status: PresenceStatus) {
     if (!this.presence) { return; }
-    const newId = Math.max.apply(null, this.presence.statuses.map(s => s.id)) + 1;
-    this.presence.statuses.push({ id: newId, type: 'custom', ...status });
+    status.id = Math.max.apply(null, this.presence.statuses.map(s => s.id)) + 1;
+    status.type = 'custom';
+    this.presence.statuses.push(status);
   }
   
   onRemove(status: PresenceStatus) {
@@ -95,6 +96,11 @@ export default class Main extends Vue {
     const index = statuses.findIndex(o => o === status);
     if (index === -1) { return; }
     this.presence.statuses = statuses.slice(0, index).concat(statuses.slice(index + 1));
+  }
+  
+  onSave() {
+    if (!this.presence) { return; }
+    this.connector?.updatePresences(this.presence.id, this.presenceStatuses);
   }
 
   mounted() : void {
