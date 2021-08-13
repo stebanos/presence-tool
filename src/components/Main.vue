@@ -6,11 +6,11 @@
     <div v-if="tab === 'builder'" class="presence-builder">
       <div>
         <h2 class="presence-header">Builder</h2>
-        <builder :presence-statuses="orderedPresenceStatuses" :status-defaults="fixedStatusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove"></builder>
+        <builder :presence-statuses="presenceStatuses" :status-defaults="statusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove"></builder>
       </div>
       <div>
         <h2 class="presence-header">Preview Entry</h2>
-        <preview-entry :presence-statuses="orderedPresenceStatuses" :preview-students="preview_students"></preview-entry>
+        <preview-entry :presence-statuses="presenceStatuses" :preview-students="preview_students"></preview-entry>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { PresenceStatus, ExtraStatus, Presence } from '../types';
+import { PresenceStatusDefault, PresenceStatus, Presence } from '../types';
 import APIConfig from '../connect/APIConfig';
 import Connector from '../connect/Connector';
 import Builder from './Builder.vue';
@@ -58,79 +58,43 @@ export default class Main extends Vue {
     }
   }
   
-  get fixedStatusDefaults() : PresenceStatus[] {
+  get statusDefaults(): PresenceStatusDefault[] {
     if (!this.pdata.status_defaults) { return []; }
-    return this.pdata.status_defaults.filter((s : PresenceStatus) => !s.aliasses);
+    return this.pdata.status_defaults;
   }
   
   get presenceStatuses() : PresenceStatus[] {
-    if (!this.presence || !this.presence.metadata) { return []; }
-
-    const statuses : PresenceStatus[] = [].concat(this.pdata.status_defaults);
-    const extraStatuses : ExtraStatus[] = this.presence.metadata.statuses;
-    extraStatuses.forEach(status => {
-      if (status['ref-id']) {
-        const s = statuses.find(s => s.id === status['ref-id']);
-        if (s && status['color']) {
-          s.color = status['color'];
-        }
-        if (s && status['code']) {
-          s.code = status['code'];
-        }
-      } else {
-        statuses.push(status as unknown as PresenceStatus);
-      }
-    });
-    return statuses;
-  }
-  
-  get orderedPresenceStatuses() : PresenceStatus[] {
-    if (!this.presence || !this.presence.metadata) { return []; }
-
-    const presenceStatuses = this.presenceStatuses;
-    return this.presence.metadata.order
-      .map(i => presenceStatuses.find(s => s.id === i))
-      .filter((status) : status is PresenceStatus => typeof status !== undefined);
+    if (!this.presence) { return []; }
+    return this.presence.statuses;
   }
   
   onMoveUp(index: number) : void {
-    if (!this.presence || !this.presence.metadata) { return; }
+    if (!this.presence) { return; }
     if (index <= 0) { return; }
-
-    const order = this.presence.metadata.order;
-    this.presence.metadata.order = order.slice(0, index - 1).concat(order[index], order[index - 1]).concat(order.slice(index + 1));
+    const statuses = this.presence.statuses;
+    this.presence.statuses = statuses.slice(0, index - 1).concat(statuses[index], statuses[index - 1]).concat(statuses.slice(index + 1));
   }
   
   onMoveDown(index: number) : void {
-    if (!this.presence || !this.presence.metadata) { return; }
-
-    const order = this.presence.metadata.order;
-    if (index >= order.length - 1) { return; }
-    this.presence.metadata.order = order.slice(0, index).concat(order[index + 1], order[index]).concat(order.slice(index + 2));
+    if (!this.presence) { return; }
+    const statuses = this.presence.statuses;
+    if (index >= statuses.length - 1) { return; }
+    this.presence.statuses = statuses.slice(0, index).concat(statuses[index + 1], statuses[index]).concat(statuses.slice(index + 2));
   }
   
-  onCreate(status: ExtraStatus) {
-    if (!this.presence || !this.presence.metadata) { return; }
-
-    const newId = this.presence.metadata.latest + 1;
-    this.presence.metadata.statuses.push({ id: newId, ...status });
-    this.presence.metadata.order.push(newId);
-    this.presence.metadata.latest = newId;
+  onCreate(status: PresenceStatus) {
+    if (!this.presence) { return; }
+    const newId = Math.max.apply(null, this.presence.statuses.map(s => s.id)) + 1;
+    this.presence.statuses.push({ id: newId, type: 'custom', ...status });
   }
   
-  onRemove(status: ExtraStatus) {
-    if (!this.presence || !this.presence.metadata) { return; }
-    
-    const statuses = this.presence.metadata.statuses;
-    const order = this.presence.metadata.order;
-
-    let index = statuses.findIndex(o => o === status);
+  onRemove(status: PresenceStatus) {
+    if (!this.presence) { return; }
+    if (status.type !== 'custom') { return; }
+    const statuses = this.presence.statuses;
+    const index = statuses.findIndex(o => o === status);
     if (index === -1) { return; }
-    this.presence.metadata.statuses = statuses.slice(0, index).concat(statuses.slice(index + 1));
-
-    index = order.findIndex(o => o === status.id);
-    if (index === -1) { return; }
-    this.presence.metadata.order = order.slice(0, index).concat(order.slice(index + 1));
+    this.presence.statuses = statuses.slice(0, index).concat(statuses.slice(index + 1));
   }
 
   mounted() : void {

@@ -6,21 +6,16 @@
       </template>
       <template #cell(title)="status">
         <div class="cell-pad" @click.stop="onSelectStatus(status.item)">
-          <template v-if="status.item.type === 'fixed'"><span style="line-height: 26px">{{ status.item.title }}</span></template>
+          <template v-if="status.item.type === 'fixed' || status.item.type === 'semifixed'"><span style="line-height: 26px">{{ getStatusDefault(status.item).title }}</span></template>
           <b-input v-else type="text" v-model="status.item.title" autocomplete="off" :disabled="createNew" class="mod-input" @focus="onSelectStatus(status.item)" />
         </div>
       </template>
       <template #cell(meaning)="status">
         <div class="cell-pad" style="line-height: 26px" @click.stop="onSelectStatus(status.item)">
-          <span v-if="!status.item.aliasses">{{ status.item.title }}</span>
-          <template v-else>
-            <span v-if="status.item.type === 'fixed'">
-              {{ statusDefaults.find(s => s.id === status.item.aliasses).title }}
-            </span>
-            <select v-else class="form-control mod-select" :disabled="createNew" @focus="onSelectStatus(status.item)">
-              <option v-for="(statusDefault, index) in statusDefaults" :key="`fs-${index}`" :value="statusDefault.id" :selected="status.item.aliasses === statusDefault.id">{{ statusDefault.title }}</option>
-            </select>
-          </template>
+          <span v-if="status.item.type === 'fixed' || status.item.type === 'semifixed'">{{ getStatusDefault(status.item, true).title }}</span>
+          <select v-else class="form-control mod-select" :disabled="createNew" @focus="onSelectStatus(status.item)">
+            <option v-for="(statusDefault, index) in fixedStatusDefaults" :key="`fs-${index}`" :value="statusDefault.id" :selected="status.item.aliasses === statusDefault.id">{{ statusDefault.title }}</option>
+          </select>
         </div>
       </template>
       <template #cell(color)="status">
@@ -55,7 +50,7 @@
       </template>
       <template #foot(meaning)="">
         <select class="form-control mod-select" v-model="aliasNew">
-          <option v-for="(statusDefault, index) in statusDefaults" :key="`fs-${index}`" :value="statusDefault.id">{{ statusDefault.title }}</option>
+          <option v-for="(statusDefault, index) in fixedStatusDefaults" :key="`fs-${index}`" :value="statusDefault.id">{{ statusDefault.title }}</option>
         </select>
       </template>
       <template #foot(color)="">
@@ -88,7 +83,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { PresenceStatus } from '../types';
+import { PresenceStatusDefault, PresenceStatus } from '../types';
 import ColorPicker from './ColorPicker.vue';
 
 const DEFAULT_COLOR_NEW = 'yellow-100';
@@ -115,7 +110,17 @@ export default class Builder extends Vue {
   selectedStatus: PresenceStatus|null = null;
   
   @Prop({type: Array, required: true}) readonly presenceStatuses!: PresenceStatus[];
-  @Prop({type: Array, required: true}) readonly statusDefaults!: PresenceStatus[];
+  @Prop({type: Array, required: true}) readonly statusDefaults!: PresenceStatusDefault[];
+  
+  get fixedStatusDefaults(): PresenceStatusDefault[] {
+    return this.statusDefaults.filter((s : PresenceStatusDefault) => s.type === 'fixed');
+  }
+  
+  getStatusDefault(status: PresenceStatus, fixed = false): PresenceStatusDefault {
+    const statusDefault = this.statusDefaults.find(s => s.id === status.id)!;
+    if (!fixed) { return statusDefault; }
+    return statusDefault.type === 'fixed' ? statusDefault : this.statusDefaults.find(s => s.id === statusDefault.aliasses)!;
+  }
   
   onSelectStatus(status: PresenceStatus) {
     if (!this.createNew) {
