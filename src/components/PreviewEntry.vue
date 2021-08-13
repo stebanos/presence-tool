@@ -9,7 +9,7 @@
     </template>
     <template #cell(period-result)="data">
       <div class="result-wrap">
-        <div class="color-code" :class="[getStatusColorForStudent(data.item)]">
+        <div class="color-code" :class="[getStatusColorForStudent(data.item) || 'mod-none']">
           <span>{{ getStatusCodeForStudent(data.item) }}</span>
         </div>
       </div>
@@ -41,10 +41,6 @@ export default class PreviewEntry extends Vue {
     return this.presenceStatuses.find(s => s.id === statusId);
   }
   
-  getStatusTitleForStudent(student: PreviewStudent) : string {
-    return this.getStatusForStudent(student.selected)?.title || '';
-  }
-
   getStatusCodeForStudent(student: PreviewStudent) : string {
     return this.getStatusForStudent(student.selected)?.code || '';
   }

@@ -247,6 +247,15 @@ export default class Main extends Vue {
   box-shadow: 0 0 0 .2rem var(--selected-color);
 }
 
+.color-code.mod-none {
+  --color: #deede1;
+  background: none;
+  background-image: linear-gradient(135deg, var(--color) 10%, transparent 10%, transparent 50%, var(--color) 50%, var(--color) 60%, transparent 60%, transparent 100%);
+  background-size: 7px 7px;
+  border-radius: 5px;
+  height: 17px;
+}
+
 .color.mod-swatch.is-selected {
   position: relative;  
 }
