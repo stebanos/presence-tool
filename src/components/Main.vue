@@ -9,8 +9,13 @@
         <builder :presence-statuses="presenceStatuses" :status-defaults="statusDefaults" @move-up="onMoveUp" @move-down="onMoveDown" @create="onCreate" @remove="onRemove" @save="onSave"></builder>
       </div>
       <div>
-        <h2 class="presence-header">Preview Entry</h2>
-        <preview-entry :presence-statuses="presenceStatuses" :preview-students="preview_students"></preview-entry>
+        <div style="width: 140px; margin-bottom: 21px" class="switch">
+          <input type="checkbox" id="myinput" class="switch-check sr-only" v-model="showPreview">
+          <label class="switch-lbl" for="myinput" aria-hidden="true">
+            <span class="switch-lbl-txt">Preview</span>
+          </label>
+        </div>
+        <preview-entry v-if="showPreview" :presence-statuses="presenceStatuses" :preview-students="preview_students"></preview-entry>
       </div>
     </div>
   </div>
@@ -33,6 +38,7 @@ export default class Main extends Vue {
   connector: Connector|null = null;
   presence: Presence|null = null;
   tab = 'builder';
+  showPreview = false;
   
   readonly preview_students = [
     { name: 'Student 1', selected: null },
@@ -303,6 +309,61 @@ export default class Main extends Vue {
   position: absolute;
   right: -5px;
   z-index: 10;
+}
+
+.switch-lbl {
+  border-radius: .375rem;
+  box-shadow: inset var(--x-offset) 4px 10px rgba(0, 0, 0, .15);
+  color: #fff;
+  display: inline-block;
+  margin-bottom: 0;
+  padding: .25rem .5rem;
+  position: relative;
+  transition: background 0.3s ease-in-out;
+  width: 100%;
+}
+
+.switch-check:not(:checked) + .switch-lbl {
+  background: #A2B4B2;
+  --x-offset: 3px;
+}
+
+.switch-check:checked + .switch-lbl {
+  background: #1b8a85;
+  --x-offset: -3px;
+}
+
+.switch-lbl:before {
+  background-color: white;
+  border-radius: .2rem;
+  bottom: .15rem;
+  content: '';
+  position: absolute;
+  top: .15rem;
+  transition: left 0.3s cubic-bezier(.175, .885, .32, .97);
+  width: 1rem;
+}
+
+.switch-check:not(:checked) + .switch-lbl:before {
+  left: .15rem;
+}
+
+.switch-check:checked + .switch-lbl:before {
+  left: calc(100% - 1.15rem);
+}
+
+.switch-lbl-txt:before {
+  transition: margin .3s ease-in-out;
+}
+
+.switch-check:not(:checked) + .switch-lbl .switch-lbl-txt:before {
+  content: attr(data-off);
+  margin-left: 1.1rem;
+}
+
+.switch-check:checked + .switch-lbl .switch-lbl-txt:before {
+  content: attr(data-on);
+  margin-left: 0;
 }
 
 .table.mod-presence {
